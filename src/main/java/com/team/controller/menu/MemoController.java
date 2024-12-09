@@ -27,7 +27,7 @@ public class MemoController {
     private MemoServiceImpl memoServiceImpl;
 
     @GetMapping("/memo/{employeeId}")
-    public String get_memo(
+    public String getMemo(
             Model model,
             // html의 query와 keyword에 넣은 값을 가져옴
             @PathVariable("employeeId") String employeeId,

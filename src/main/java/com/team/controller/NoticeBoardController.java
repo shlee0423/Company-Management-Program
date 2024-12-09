@@ -2,7 +2,6 @@ package com.team.controller;
 
 import com.team.domain.EmployeeDTO;
 import com.team.domain.NoticeDTO;
-import com.team.domain.ProductDTO;
 import com.team.mapper.NoticeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +26,7 @@ public class NoticeBoardController {
     // 공지사항 목록 조회
     @Transactional(readOnly = true)
     @GetMapping("/notice")
-    public String create_view(
+    public String createView(
             @AuthenticationPrincipal EmployeeDTO employee,
             Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -52,7 +51,7 @@ public class NoticeBoardController {
     // 공지사항 등록 페이지
     @Transactional
     @GetMapping("/registration")
-    public String get_registration_view(
+    public String getRegistrationView(
             @AuthenticationPrincipal EmployeeDTO employee,
             Model model
             ){
@@ -66,7 +65,7 @@ public class NoticeBoardController {
     // 공지사항 등록 처리
     @Transactional
     @PostMapping("/registration")
-    public String post_registration_view(@ModelAttribute NoticeDTO notice){
+    public String postRegistrationView(@ModelAttribute NoticeDTO notice){
         noticeMapper.insertNotice(notice);
         return "redirect:/Notice_Service/notice";  // 등록 후 목록 페이지로 리다이렉트
     }
@@ -74,7 +73,7 @@ public class NoticeBoardController {
     // 공지사항 업데이트
     @Transactional
     @PutMapping("/update/{boardNo}")
-    public ResponseEntity<NoticeDTO> update_notice(
+    public ResponseEntity<NoticeDTO> updateNotice(
             @PathVariable("boardNo") Integer boardNo,
             @RequestBody NoticeDTO noticeDTO
     ){
@@ -88,7 +87,7 @@ public class NoticeBoardController {
 
     @ResponseBody
     @DeleteMapping("/notice")
-    public void delete_notice(
+    public void deleteNotice(
             @RequestBody List<Integer> notices
     ){
        for(Integer notice : notices){
@@ -110,7 +109,7 @@ public class NoticeBoardController {
     @Transactional(readOnly = true)
     @GetMapping("/notice/{boardNo}/count")
     @ResponseBody
-    public Integer count_notice(@PathVariable("boardNo") Integer boardNo) {
+    public Integer countNotice(@PathVariable("boardNo") Integer boardNo) {
 
         return noticeMapper.countNotice(boardNo);
     }

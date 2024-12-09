@@ -20,15 +20,15 @@ public class AuthController {
     private AuthService authService;
 
     @GetMapping("/login")
-    public String get_login(){
+    public String getLogin(){
         return "auth/login";
     }
     @GetMapping("/find_password")
-    public void get_find_password(){
+    public void getFindPassword(){
 
     }
     @GetMapping("/register")
-    public void get_register(){
+    public void getRegister(){
     }
 
     @GetMapping("/register/{employeeId}")
@@ -39,7 +39,7 @@ public class AuthController {
 
     @PostMapping("/register")
     // html impUid 가져오는 RequestParam 요소의 name 으로 가져옴
-    public String post_employee_register(
+    public String postEmployeeRegister(
             @RequestParam("impUid") String impUid,
             EmployeeDTO employeeDTO,
             RedirectAttributes redirectAttributes

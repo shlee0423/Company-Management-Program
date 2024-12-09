@@ -2,12 +2,9 @@ package com.team.controller;
 
 import com.team.domain.EmployeeDTO;
 import com.team.domain.ProductDTO;
-import com.team.domain.ReservationDTO;
 import com.team.service.productservice.ProductService;
-import com.team.service.reserveservice.ReserveService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,7 +22,7 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/manage_product")
-    public String get_manage_product(
+    public String getManageProduct(
             @RequestParam(required = false) String query,
             @RequestParam(required = false) String rental,
             @AuthenticationPrincipal EmployeeDTO employee,
@@ -52,18 +49,18 @@ public class ProductController {
     }
 
     @GetMapping("/register_product")
-    public void get_register_product() {
+    public void getRegisterProduct() {
     }
 
     @PostMapping("/register_product")
-    public String post_register_product(ProductDTO product){
+    public String postRegisterProduct(ProductDTO product){
         productService.insert_product(product);
         log.info(product);
         return "redirect:/product/manage_product";
     }
 
     @GetMapping("/{productNo}")
-    public String get_product(
+    public String getProduct(
             @PathVariable("productNo") Integer productNo,
             Model model
     ){
@@ -73,7 +70,7 @@ public class ProductController {
     }
 
     @PostMapping("/{productNo}")
-    public String post_update_product(
+    public String postUpdateProduct(
             @PathVariable("productNo") Integer productNo,
             ProductDTO product
     ){
@@ -84,7 +81,7 @@ public class ProductController {
 
     @ResponseBody
     @DeleteMapping("/manage_product")
-    public void delete_product(
+    public void deleteProduct(
             @RequestBody List<ProductDTO> products
     ){
         for(ProductDTO product : products){

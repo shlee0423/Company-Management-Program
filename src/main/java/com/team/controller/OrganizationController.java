@@ -13,8 +13,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
 import java.util.List;
@@ -27,7 +29,7 @@ public class OrganizationController {
     private OrganizationService organizationService;
 
     @GetMapping("/list")
-    public String get_organize_list(
+    public String getOrganizeList(
             @AuthenticationPrincipal EmployeeDTO employee,
             Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -52,7 +54,7 @@ public class OrganizationController {
 
     @Transactional
     @PostMapping("/list")
-    public ResponseEntity<String> post_reservation(
+    public ResponseEntity<String> postReservation(
 //            @RequestParam("file") MultipartFile data,
             @RequestBody Map<String, Object> jsonData
 

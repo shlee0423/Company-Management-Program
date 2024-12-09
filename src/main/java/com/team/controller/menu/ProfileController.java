@@ -1,7 +1,6 @@
 package com.team.controller.menu;
 
 import com.team.domain.EmployeeDTO;
-import com.team.service.auth.AuthService;
 import com.team.service.menuservice.ProfileServiceImpl;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Objects;
 
@@ -23,7 +24,7 @@ public class ProfileController {
     private ProfileServiceImpl profileService;
     // 아이디로 유저 데이터 보여주기
     @GetMapping("/profile/{employeeId}")
-    public String get_profile(
+    public String getProfile(
             @PathVariable("employeeId") String employeeId,
             Model model,
             @AuthenticationPrincipal EmployeeDTO employeeDTO

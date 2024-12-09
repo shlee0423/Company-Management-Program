@@ -10,7 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Objects;
 
@@ -25,7 +24,7 @@ public class DriveController {
     }
 
     @GetMapping("/menu/drive")
-    public String get_drive(@AuthenticationPrincipal EmployeeDTO employeeDTO, Model model) {
+    public String getDrive(@AuthenticationPrincipal EmployeeDTO employeeDTO, Model model) {
         if(!Objects.isNull(employeeDTO)) {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String name = authentication.getName();

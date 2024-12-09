@@ -85,7 +85,7 @@ public class ChatController {
 
     @ResponseBody
     @PostMapping("/room/{roomNo}/chat")
-    public ResponseEntity<Void> chat_insert(
+    public ResponseEntity<Void> chatInsert(
             @PathVariable("roomNo") Integer roomNo,
             @RequestBody ChatDTO chat
     ){
