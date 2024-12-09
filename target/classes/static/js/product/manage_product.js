@@ -54,7 +54,7 @@ function collect_product_selected_items(){
 
 // 선택되어 있는 비품 아이템을 삭제
 function delete_product_items(items){
-    fetch(`/product/manage_product`,{
+    fetch(`/product`,{
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
