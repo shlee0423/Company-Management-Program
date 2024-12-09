@@ -21,7 +21,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/manage_product")
+    @GetMapping()
     public String getManageProduct(
             @RequestParam(required = false) String query,
             @RequestParam(required = false) String rental,
@@ -56,7 +56,7 @@ public class ProductController {
     public String postRegisterProduct(ProductDTO product){
         productService.insertProduct(product);
         log.info(product);
-        return "redirect:/product/manage_product";
+        return "redirect:/product";
     }
 
     @GetMapping("/{productNo}")
@@ -76,11 +76,11 @@ public class ProductController {
     ){
         product.setProductNo(productNo);
         productService.updateProduct(product);
-        return "redirect:/product/manage_product";
+        return "redirect:/product";
     }
 
     @ResponseBody
-    @DeleteMapping("/manage_product")
+    @DeleteMapping()
     public void deleteProduct(
             @RequestBody List<ProductDTO> products
     ){

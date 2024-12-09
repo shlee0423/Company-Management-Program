@@ -22,8 +22,8 @@ public class ScheduleController {
     @Autowired
     ScheduleService scheduleService;
 
-    @GetMapping("/calendar")
-    public void getCalender(
+    @GetMapping()
+    public String getCalender(
 //            @PathVariable("employee") String employeeId,
             @AuthenticationPrincipal EmployeeDTO employee,
             Model model
@@ -32,10 +32,11 @@ public class ScheduleController {
         String name = authentication.getName();
         model.addAttribute("name",name);
         model.addAttribute("employee",employee);
+        return "/schedule/calendar";
     }
 
     @ResponseBody
-    @GetMapping("/{employeeId}")
+    @GetMapping("/calendar/{employeeId}")
     public List<ScheduleDTO> getSchedules(
             @PathVariable("employeeId") String employeeId
     ){
@@ -43,7 +44,7 @@ public class ScheduleController {
         return schedules;
     }
 
-    @PostMapping("/calendar")
+    @PostMapping()
     public ResponseEntity<ScheduleDTO> postInsertSchedule(
             @RequestBody ScheduleDTO schedule){
         scheduleService.insertCalendar(schedule);
@@ -51,7 +52,7 @@ public class ScheduleController {
         return ResponseEntity.ok().body(null);
     }
 
-    @GetMapping("/calendar/{no}")
+    @GetMapping("/{no}")
     public ResponseEntity<ScheduleDTO> getSchedule(@PathVariable("no") Integer no){
         ScheduleDTO schedule = scheduleService.selectScheduleByNo(no);
         return ResponseEntity.ok(schedule);
