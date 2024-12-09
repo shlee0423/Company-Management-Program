@@ -12,29 +12,29 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Autowired private ScheduleMapper scheduleMapper;
 
     @Override
-    public List<ScheduleDTO> select_schedules(
+    public List<ScheduleDTO> selectSchedules(
             String employeeId
     ) {
         return scheduleMapper.selectSchedules(employeeId);
     }
 
     @Override
-    public void insert_calendar(ScheduleDTO scheduleDTO) {
+    public void insertCalendar(ScheduleDTO scheduleDTO) {
         scheduleMapper.insertCalendar(scheduleDTO);
     }
 
     @Override
-    public ScheduleDTO select_scheduleByNo(Integer no) {
+    public ScheduleDTO selectScheduleByNo(Integer no) {
         return scheduleMapper.selectScheduleByNo(no);
     }
 
     @Override
-    public void update_schedule(ScheduleDTO schedule) {
+    public void updateSchedule(ScheduleDTO schedule) {
         scheduleMapper.updateSchedule(schedule);
     }
 
     @Override
-    public void delete_schedule(Integer no) {
+    public void deleteSchedule(Integer no) {
         scheduleMapper.deleteSchedule(no);
     }
 }

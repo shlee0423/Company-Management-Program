@@ -1,4 +1,4 @@
-# 회사 관리 프로그램 (24.09.06 16:09)
+# 회사 관리 프로그램 (24.12.09)
 
 ## 프로젝트 소개
 회사에서 사용하는 업무들을 하나의 웹 페이지에서 다 처리할 수 있도록 하고자 만든 웹 프로그램입니다. Spring Boot를 활용하여 웹 페이지를 제작하였습니다.
@@ -53,22 +53,19 @@ DB 설계
 ## API 명세
 |name|Path|Method|Redirect|Info|
 |:----:|:----:|:----:|:----:|:--------:|
-|login|/auth/login|GET|X|로그인 페이지
-|register|/auth/register|GET|X|회원가입 페이지
-|register|/auth/register|POST|X|회원가입 페이지 입력정보 받아오기
-|checkAvailableId|/auth/register/{employeeId}|GET|X|아이디 중복 체크
-|selectMemoByEmployeeId|/menu/memo/{employeeId}|GET|/auth/login|직원 별 메모 페이지 + 검색
-|insertMemoByEmployeeId|/menu/memo/{employeeId}|POST|/menu/memo/{employeeId}|직원 별 메모 입력
-|updateMemoByEmployeeIdMemoNo|/menu/memo/{employeeId}l/{memoNo}|POST|X|직원 별 메모 수정
-|deteleMemoByEmployeeIdMemoNo|/menu/memo/{employeeId}/{memoNo}|DELETE|X|직원 별 메모 석제
-|index|/main/index|GET|/auth/login|메인 페이지
-|profile|/main/profile/{employeeId}|GET|/auth/login|프로필 페이지
+|getManageProduct|/product|GET|X|비품 관리 페이지
+|getRegisterProduct|/product/register_product|GET|X|비품 등록 페이지
+|postRegisterProduct|/product/register_product|POST|product/manage_product|비품 등록
+|getProduct|/product/{productNo}|GET|X|비품 확인 페이지
+|postUpdateProduct|/product/{productNo}|POST|/product|비품 수정
+|deleteProduct|/product|DELETE|X|비품 삭제
+|getCalendar|/schedule|GET|X|일정 관리 페이지
+|getSchedules|/schedule/calendar/{employeeId}|GET|X|개인 일정 불러오기
+|postInsertSchedule|/schedule|POST|X|일정 추가
+|getSchedule|/schedule/{no}|GET|X|일정 확인
+|updateSchedule|/schedule/{no}|PUT|X|일정 수정
+|deleteSchedule|/schedule/{no}|DELETE|X|일정 삭제
 
 ### 추가해야할 API 
-공지 + 챗 + 조직도 + 비품 + 예약 + 스케쥴
-
-## 수정해야할 것
-+ 공지 Service Mapper 분리
-+ File 처리
-+ CSS 깨짐 수정, 미디어 쿼리 추가
+공지 + 챗 + 조직도 + 예약
 

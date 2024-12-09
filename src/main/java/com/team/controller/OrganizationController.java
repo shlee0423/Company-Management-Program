@@ -37,16 +37,16 @@ public class OrganizationController {
         model.addAttribute("name",name);
         model.addAttribute("employee",employee);
         //DTO 만들고 뿌려주기
-        RepresentDTO represent = organizationService.select_Represent();
+        RepresentDTO represent = organizationService.selectRepresent();
 //        String encodedImage = java.util.Base64.getEncoder().encodeToString(represent.getRepresentImage());
 
         model.addAttribute("represent", represent);
 //        model.addAttribute("encodedImage", encodedImage);
 
-        List<DepartDTO> depart = organizationService.select_depart();
+        List<DepartDTO> depart = organizationService.selectDepart();
         model.addAttribute("depart", depart);
 
-        List<DepartDetailDTO> departDetail = organizationService.select_DepartDetail();
+        List<DepartDetailDTO> departDetail = organizationService.selectDepartDetail();
         model.addAttribute("departDetail", departDetail);
 
         return "/organization/organization";
@@ -70,7 +70,7 @@ public class OrganizationController {
 //        }
 
 
-        organizationService.update_representContent(representContent); //컨텐츠 업데이트 완료
+        organizationService.updateRepresentContent(representContent); //컨텐츠 업데이트 완료
 
         List<Map<String, String>> departDataList = (List<Map<String, String>>) jsonData.get("departData");
         for (Map<String, String> departData : departDataList) {
@@ -78,10 +78,10 @@ public class OrganizationController {
             String departName = departData.get("departName");
             System.out.println("Depart No: " + departNo + ", Depart Name: " + departName);
 
-             organizationService.update_departData(departNo, departName); // 예시: 부서 데이터 업데이트 로직
+             organizationService.updateDepartData(departNo, departName); // 예시: 부서 데이터 업데이트 로직
         }
 
-        organizationService.delete_departDetail();
+        organizationService.deleteDepartDetail();
         List<Map<String, Object>> departDatasList = (List<Map<String, Object>>) jsonData.get("departDatas");
         for (Map<String, Object> departDatas : departDatasList) {
             Integer departNo = Integer.parseInt(String.valueOf(departDatas.get("departDetailNo")));
@@ -93,7 +93,7 @@ public class OrganizationController {
                 System.out.println("Content:" + departContentList.get(i));
                 String detailName = departContentList.get(i);
                 if(detailName != null){
-                    organizationService.insert_departDetail(departNo, detailName);
+                    organizationService.insertDepartDetail(departNo, detailName);
                 }
             }
         }

@@ -116,7 +116,7 @@ document.getElementById('deleteBtn').onclick = function () {
 };
 
 // 일정 불러오기 및 FullCalendar 설정
-fetchData(`/schedule/${employeeId.value}`)
+fetchData(`/schedule/calendar/${employeeId.value}`)
     .then(schedules => {
         $(function () {
             const calendarEl = $('#calendar')[0];
@@ -151,7 +151,7 @@ fetchData(`/schedule/${employeeId.value}`)
                     const eventData = obj.event;
                     const no = eventData.extendedProps.no;
 
-                    fetchData(`/schedule/calendar/${no}`)
+                    fetchData(`/schedule/${no}`)
                         .then(data => {
                             $("#checkId").val(data.no);
                             $("#checkTitle").text(data.title);
@@ -174,7 +174,7 @@ fetchData(`/schedule/${employeeId.value}`)
                         employeeId: employeeId.value
                     };
                     console.log(o)
-                    fetch(`/schedule/calendar`, {
+                    fetch(`/schedule`, {
                         method: "POST",
                         headers: {
                             'X-CSRF-TOKEN': getCsrfToken(),

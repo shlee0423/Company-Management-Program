@@ -22,8 +22,8 @@ public class ScheduleController {
     @Autowired
     ScheduleService scheduleService;
 
-    @GetMapping("/calendar")
-    public void getCalender(
+    @GetMapping()
+    public String getCalender(
 //            @PathVariable("employee") String employeeId,
             @AuthenticationPrincipal EmployeeDTO employee,
             Model model
@@ -32,28 +32,29 @@ public class ScheduleController {
         String name = authentication.getName();
         model.addAttribute("name",name);
         model.addAttribute("employee",employee);
+        return "/schedule/calendar";
     }
 
     @ResponseBody
-    @GetMapping("/{employeeId}")
+    @GetMapping("/calendar/{employeeId}")
     public List<ScheduleDTO> getSchedules(
             @PathVariable("employeeId") String employeeId
     ){
-        List<ScheduleDTO> schedules = scheduleService.select_schedules(employeeId);
+        List<ScheduleDTO> schedules = scheduleService.selectSchedules(employeeId);
         return schedules;
     }
 
-    @PostMapping("/calendar")
+    @PostMapping()
     public ResponseEntity<ScheduleDTO> postInsertSchedule(
             @RequestBody ScheduleDTO schedule){
-        scheduleService.insert_calendar(schedule);
+        scheduleService.insertCalendar(schedule);
         log.info(schedule.toString());
         return ResponseEntity.ok().body(null);
     }
 
-    @GetMapping("/calendar/{no}")
+    @GetMapping("/{no}")
     public ResponseEntity<ScheduleDTO> getSchedule(@PathVariable("no") Integer no){
-        ScheduleDTO schedule = scheduleService.select_scheduleByNo(no);
+        ScheduleDTO schedule = scheduleService.selectScheduleByNo(no);
         return ResponseEntity.ok(schedule);
     }
 
@@ -64,7 +65,7 @@ public class ScheduleController {
     ){
         schedule.setNo(no);
         System.out.println("업데이트: " + schedule);
-        scheduleService.update_schedule(schedule);
+        scheduleService.updateSchedule(schedule);
         return ResponseEntity.ok().body(null);
     }
 
@@ -72,7 +73,7 @@ public class ScheduleController {
     public ResponseEntity<Void> deleteSchedule(
             @PathVariable("no") Integer no
     ){
-        scheduleService.delete_schedule(no);
+        scheduleService.deleteSchedule(no);
         return ResponseEntity.ok().body(null);
     }
 

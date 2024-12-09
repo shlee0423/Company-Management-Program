@@ -1,9 +1,6 @@
 package com.team.service.organizationservice;
 
 
-import com.nimbusds.openid.connect.sdk.assurance.evidences.Organization;
-import com.team.domain.ProductDTO;
-import com.team.domain.ReservationDTO;
 import com.team.domain.organize.DepartDTO;
 import com.team.domain.organize.DepartDetailDTO;
 import com.team.domain.organize.RepresentDTO;
@@ -21,37 +18,37 @@ public class OrganizationServiceImpl implements OrganizationService {
     private OrganizationMapper organizationMapper;
 
     @Override
-    public RepresentDTO select_Represent() {
+    public RepresentDTO selectRepresent() {
         return organizationMapper.selectRepresent();
     }
 
     @Override
-    public List<DepartDTO> select_depart() {
+    public List<DepartDTO> selectDepart() {
         return organizationMapper.selectDepart();
     }
 
     @Override
-    public List<DepartDetailDTO> select_DepartDetail() {
+    public List<DepartDetailDTO> selectDepartDetail() {
         return organizationMapper.selectDepartDetail();
     }
 
     @Override
-    public void update_representContent(String representContent) {
+    public void updateRepresentContent(String representContent) {
         organizationMapper.UpdateRepresentContent(representContent);
     }
 
     @Override
-    public void delete_departDetail() {
+    public void deleteDepartDetail() {
         organizationMapper.DeleteDepartDetail();
     }
 
     @Override
-    public void update_departData(Integer departNo, String departName) {
+    public void updateDepartData(Integer departNo, String departName) {
         organizationMapper.UpdateDepartData(departNo, departName);
     }
 
     @Override
-    public void insert_departDetail(Integer departNo, String detailName) {
+    public void insertDepartDetail(Integer departNo, String detailName) {
         organizationMapper.InsertDepartDetail(departNo, detailName);
     }
 

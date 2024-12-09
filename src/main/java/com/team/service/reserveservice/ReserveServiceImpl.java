@@ -1,8 +1,6 @@
 package com.team.service.reserveservice;
 
-import com.team.domain.ProductDTO;
 import com.team.domain.ReservationDTO;
-import com.team.mapper.ProductMapper;
 import com.team.mapper.ReserveMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +25,7 @@ public class ReserveServiceImpl implements ReserveService{
     }
 
     @Override
-    public ReservationDTO select_reservation_by_no(Integer reservationNo) {
+    public ReservationDTO selectReservationByNo(Integer reservationNo) {
         log.info("reservationNo:"+reservationNo);
         return reserveMapper.selectReservationByNo(reservationNo);
     }
