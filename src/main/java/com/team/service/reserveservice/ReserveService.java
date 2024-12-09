@@ -9,7 +9,7 @@ public interface ReserveService {
 
     List<ReservationDTO> selectReservations(String query);
 
-    ReservationDTO select_reservation_by_no(Integer reservationNo);
+    ReservationDTO selectReservationByNo(Integer reservationNo);
 
     void reservationApprove(Integer reservationNo);
 

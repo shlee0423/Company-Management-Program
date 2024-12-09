@@ -28,14 +28,14 @@ public class ProductController {
             @AuthenticationPrincipal EmployeeDTO employee,
             Model model
     ) {
-        List<ProductDTO> products = productService.get_products(query, rental);
+        List<ProductDTO> products = productService.getProducts(query, rental);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String name = authentication.getName();
 
         for (ProductDTO product : products) {
             // 예약 수
-            Integer reservationCount = productService.count_reservation(product.getProductNo());
+            Integer reservationCount = productService.countReservation(product.getProductNo());
             // 총수량 - 예약 수
             int availableAmount = product.getProductAmount() - reservationCount;
             // productAmount 에 set
@@ -54,7 +54,7 @@ public class ProductController {
 
     @PostMapping("/register_product")
     public String postRegisterProduct(ProductDTO product){
-        productService.insert_product(product);
+        productService.insertProduct(product);
         log.info(product);
         return "redirect:/product/manage_product";
     }
@@ -64,7 +64,7 @@ public class ProductController {
             @PathVariable("productNo") Integer productNo,
             Model model
     ){
-        ProductDTO product = productService.select_product_by_no(productNo);
+        ProductDTO product = productService.selectProductByNo(productNo);
         model.addAttribute("product", product);
         return "product/read_product";
     }
@@ -75,7 +75,7 @@ public class ProductController {
             ProductDTO product
     ){
         product.setProductNo(productNo);
-        productService.update_product(product);
+        productService.updateProduct(product);
         return "redirect:/product/manage_product";
     }
 
@@ -86,14 +86,7 @@ public class ProductController {
     ){
         for(ProductDTO product : products){
             System.out.println(product.getProductNo());
-            productService.delete_product(product.getProductNo());
+            productService.deleteProduct(product.getProductNo());
         }
     }
-
-
-//    주소에 /1 , /2 와 같이 여러 개 있을 경우 사용
-//    @GetMapping("/{product_no}")
-//    public void product_no(){
-//
-//    }
 }

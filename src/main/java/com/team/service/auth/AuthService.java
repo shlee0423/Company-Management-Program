@@ -39,7 +39,7 @@ public class AuthService {
     }
 
 
-    private String get_portone_access_token() {
+    private String getPortoneAccessToken() {
         RequestEntity<String> getAccessTokenRequest = RequestEntity
                 .post(PORT_ONE_ACCESS_TOKEN_URL)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -63,7 +63,7 @@ public class AuthService {
     }
 
     // 포트원의 본인인증 정보를 얻는 메서드 (유저의 ci값을 얻음)
-    private String get_portone_user_cert_info(String impUid, String accessToken) {
+    private String getPortoneUserCertInfo(String impUid, String accessToken) {
         RequestEntity<Void> userCertRequest = RequestEntity.get(PORT_ONE_USER_CERT_INFO_URL, impUid)
                 .header("Authorization", "Bearer " + accessToken)
                 .build();
@@ -93,12 +93,12 @@ public class AuthService {
             log.info(impUid);
             return false;
         }
-        String accessToken = get_portone_access_token();
+        String accessToken = getPortoneAccessToken();
         log.info("액세스 토큰" + accessToken);
         if(accessToken == null){
             return false;
         }
-        String employeeCi = get_portone_user_cert_info(impUid, accessToken);
+        String employeeCi = getPortoneUserCertInfo(impUid, accessToken);
         log.info("ci " + employeeCi);
         if(employeeCi == null){
             return false;

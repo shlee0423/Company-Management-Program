@@ -62,7 +62,7 @@ public class ReservationController {
             Model model
     ) {
 
-        ReservationDTO reservation = reserveService.select_reservation_by_no(reservationNo);
+        ReservationDTO reservation = reserveService.selectReservationByNo(reservationNo);
         model.addAttribute("reservation", reservation);
 
         return "/reservation/reservation_check";
