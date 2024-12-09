@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragment/main-layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+</head>
+<main layout:fragment="main">
+<body>
+    
+    <div class="table-list">
+        <h2>회사조직도</h2>
+<!--        <img th:src="'data:image/jpeg;base64,' + ${encodedImage}" alt="Represent Image" />-->
+        <section class="table-list-design">
+            <div class="organize-box">
+                <div class="organize-round-first">
+<!--                    <input type="file" id="file-data">-->
+
+                    <!--                    <img src="../../static/organizationImage/wrtFileImageView.jpg" height="100px" width="100px"/>-->
+                </div>
+
+
+                
+                <textarea class="organize-line" id="organize-represent-content" th:text="${represent.representContent}">dfdf</textarea>
+            </div>
+            <input type="hidden" id="hiddenData" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            
+            <div class="organize-ceo-letter"><span>대표이사</span></div>
+
+            <div class="organize-lines-box">
+                <div class="organize-lines"></div>
+            </div>
+
+            <div class="organize-rounds">
+                <input type="text" class="organize-round" id="organization-depart-first" th:value="${depart[0].departName}">
+                <div class="organize-round-line-box">
+                    <div class="organize-round-line"></div>
+                </div>
+                <input type="text" class="organize-round" id="organization-depart-second" th:value="${depart[1].departName}">
+                <div class="organize-round-line-box">
+                    <div class="organize-round-line"></div>
+                </div>
+
+                <input type="text" class="organize-round" id="organization-depart-third" th:value="${depart[2].departName}">
+            </div>
+
+            <div class="organize-button-line" id="organize-btns-box">
+                <div class="organize-square-button">
+                    <button type="button" id="organize-first-plus-btn">+</button>
+                    <button type="button" id="organize-first-minus-btn">-</button>
+                </div>
+                <div class="organize-square-line-box">
+                </div>
+                <div class="organize-square-button">
+                    <button type="button" id="organize-second-plus-btn">+</button>
+                    <button type="button" id="organize-second-minus-btn">-</button>
+                </div>
+                <div class="organize-square-line-box">
+                </div>
+                <div class="organize-square-button">
+                    <button type="button" id="organize-third-plus-btn">+</button>
+                    <button type="button" id="organize-third-minus-btn">-</button>
+                </div>
+            </div>
+
+            <div class="organize-rounds">
+                <input type="hidden" th:value="${depart[0].departNo}" id="departDetailNo1">
+                <input type="hidden" th:value="${depart[1].departNo}" id="departDetailNo2">
+                <input type="hidden" th:value="${depart[2].departNo}"  id="departDetailNo3">
+
+                <form id="organize-depart-first">
+                    <div th:each="detail : ${departDetail}">
+                        <div th:if="${detail.departNo == 1}">
+                            <input class="organize-square" th:value="${detail.detailName}">
+                        </div>
+                    </div>
+                </form>
+
+                
+                <div class="organize-round-line-box">
+                </div>
+
+                <form id="organize-depart-second">
+                    <div th:each="detail : ${departDetail}">
+                        <div th:if="${detail.departNo == 2}">
+                            <input class="organize-square" th:value="${detail.detailName}">
+                        </div>
+                    </div>
+                </form>
+
+                <div class="organize-round-line-box">
+                </div>
+
+                <form id="organize-depart-third">
+                    <div th:each="detail : ${departDetail}">
+                        <div th:if="${detail.departNo == 3}">
+                            <input class="organize-square" th:value="${detail.detailName}">
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+
+            <div class="organize-check">
+                <button type="button" id="organize-update-mode">편집모드</button>
+                <button type="button" id="organize-submit">확인</button>
+                <button type="button" id="organize-cancel">취소</button>
+            </div>
+        </section>
+    </div>
+      
+      
+</body>
+</main>
+</html>
+<script>
+    // input form부분
+    const form1 = document.getElementById('organize-depart-first');
+    const form2 = document.getElementById('organize-depart-second');
+    const form3 = document.getElementById('organize-depart-third');
+
+    // +,-버튼 감싸는 박스
+    const btns = document.getElementById('organize-btns-box');
+
+    // +,- 버튼
+    const firstPlusBtn = document.getElementById('organize-first-plus-btn');
+    const firstMinusBtn = document.getElementById('organize-first-minus-btn');
+
+    const secondPlusBtn = document.getElementById('organize-second-plus-btn');
+    const secondMinusBtn = document.getElementById('organize-second-minus-btn');
+
+    const thirdPlusBtn = document.getElementById('organize-third-plus-btn');
+    const thirdMinusBtn = document.getElementById('organize-third-minus-btn');
+
+    // 편집모드, 확인, 취소 버튼
+    const updateMode = document.getElementById('organize-update-mode');
+    const submitBtn = document.getElementById('organize-submit');
+    const cancelBtn = document.getElementById('organize-cancel');
+
+    var DetailInputFirst = form1.querySelectorAll("input");
+    var DetailInputSecond = form2.querySelectorAll("input");
+    var DetailInputThird = form3.querySelectorAll("input");
+
+    DetailInputFirst.forEach(input => {
+        input.setAttribute('readonly', 'true');
+    });
+
+    DetailInputSecond.forEach(input => {
+        input.setAttribute('readonly', 'true');
+    });
+
+    DetailInputThird.forEach(input => {
+        input.setAttribute('readonly', 'true');
+    });
+
+    //대표 content
+    var representContent=document.getElementById("organize-represent-content");
+    representContent.setAttribute('readonly', 'true');
+
+    //부서 첫번째값
+    var departFirst = document.getElementById("organization-depart-first");
+    departFirst.setAttribute('readonly', 'true');
+
+    //부서 두번째값
+    var departSecond = document.getElementById("organization-depart-second");
+    departSecond.setAttribute('readonly', 'true');
+
+    //부서 세번째값
+    var departThird = document.getElementById("organization-depart-third");
+    departThird.setAttribute('readonly', 'true');
+
+    submitBtn.style.display = "none";
+    cancelBtn.style.display = "none";
+    btns.style.display = "none";
+
+    updateMode.onclick = () =>{
+        updateMode.style.display = "none";
+        submitBtn.style.display = "block";
+        cancelBtn.style.display = "block";
+        btns.style.display = "flex";
+
+
+        DetailInputFirst.forEach(input => {
+            input.removeAttribute('readonly');
+        });
+
+        DetailInputSecond.forEach(input => {
+            input.removeAttribute('readonly');
+        });
+
+        DetailInputThird.forEach(input => {
+            input.removeAttribute('readonly');
+        });
+
+        //대표 content
+        representContent.removeAttribute('readonly');
+
+        //부서 첫번째값
+        departFirst.removeAttribute('readonly');
+
+        //부서 두번째값
+        departSecond.removeAttribute('readonly');
+
+        //부서 세번째값
+        departThird.removeAttribute('readonly');
+    }
+
+    cancelBtn.onclick = () => {
+        updateMode.style.display = "block";
+        submitBtn.style.display = "none";
+        cancelBtn.style.display = "none";
+        btns.style.display = "none";
+
+        fetch("/organize/list",{
+            method: "GET",
+        }).then(response => {
+            if(response.ok){
+                // alert('조회완료.');
+                location.reload(); // 화면 새로고침
+            }
+        });
+    }
+
+    submitBtn.onclick = () => {
+        updateMode.style.display = "none";
+        submitBtn.style.display = "block";
+        cancelBtn.style.display = "block";
+        btns.style.display = "flex";
+
+        //대표 content
+        representContent=document.getElementById("organize-represent-content");
+
+        //부서 첫번째값
+        const departFirstNo = document.getElementById("departDetailNo1");
+        departFirst = document.getElementById("organization-depart-first");
+
+        //부서 두번째값
+        const departSecondNo = document.getElementById("departDetailNo2");
+        departSecond = document.getElementById("organization-depart-second");
+
+        //부서 세번째값
+        const departThirdNo = document.getElementById("departDetailNo3");
+        departThird = document.getElementById("organization-depart-third");
+
+        DetailInputFirst = form1.querySelectorAll("input");
+        DetailInputSecond = form2.querySelectorAll("input");
+        DetailInputThird = form3.querySelectorAll("input");
+
+
+        //부서에 딸린 데이터의 값들을 저장
+        const datasFirstList = [];
+        const datasSecondList = [];
+        const datasThirdList = [];
+
+        //토큰값
+        const csrfTokenInput = document.getElementById("hiddenData");
+
+        //파일값
+        // const FileData = document.getElementById('file-data');
+        // const formData = new FormData(); //FormData 객체 생성
+
+        //파일이 선택되었는지 확인하고 추가
+        // if(FileData.files.length > 0){
+        //     formData.append('file', fileInput.files[0]);
+        // }else {
+        //     alert('파일을 선택해주세요.');
+        //     return;
+        // }
+
+        // fetch("/organize/list", {
+        //     method: "POST",
+        //     body: formData,
+        // }).then(response => {
+        //     if (response.ok) {
+        //         alert('저장되었습니다.');
+        //         location.reload(); // 화면 새로고침
+        //     }
+        // });
+
+        DetailInputFirst.forEach(input => {
+            datasFirstList.push(input.value);
+            input.setAttribute('readonly', 'true');
+        });
+
+        DetailInputSecond.forEach(input => {
+            datasSecondList.push(input.value);
+            input.setAttribute('readonly', 'true');
+        });
+
+        DetailInputThird.forEach(input => {
+            datasThirdList.push(input.value);
+            input.setAttribute('readonly', 'true');
+        });
+
+        const dataList = {
+            "representContent" : representContent.value, //대표 content
+            "departData" : [{
+                  //부서 첫번째값
+                  "departNo" : departFirstNo.value,
+                  "departName" : departFirst.value
+                },
+                {   //부서 두번째값
+                    "departNo" : departSecondNo.value,
+                    "departName" : departSecond.value
+                },
+                {   //부서 세번째값
+                    "departNo" : departThirdNo.value,
+                    "departName" : departThird.value
+                },
+            ],
+            "departDatas" : [{
+                //부서에 딸린 첫번재 데이터값
+                "departDetailNo" : departFirstNo.value,
+                "departContent" : datasFirstList
+            }, {
+                //부서에 딸린 두번째 데이터값
+                "departDetailNo" : departSecondNo.value,
+                "departContent" : datasSecondList
+            },{
+                //부서에 딸린 세번째 데이터값
+                "departDetailNo" : departThirdNo.value,
+                "departContent" : datasThirdList
+            }]
+        };
+        console.log(dataList);
+
+        fetch("/organize/list",{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfTokenInput.value
+            },
+            body: JSON.stringify(dataList)
+        }).then(response => {
+            if(response.ok){
+                alert('저장되었습니다.');
+                location.reload(); // 화면 새로고침
+            }
+        });
+
+    }
+
+    firstPlusBtn.onclick = () => {
+        // input타입 생성
+        const inputElement = document.createElement('input');
+        inputElement.type = 'text'; // input 요소의 타입 설정
+        inputElement.name = 'newInput'; // input 요소의 이름 설정 (필요시)
+        inputElement.classList.add('organize-square');
+
+        // 생성된 input 요소를 form1에 추가
+        form1.appendChild(inputElement);
+    }
+
+    firstMinusBtn.onclick = () => {
+        const inputs = form1.querySelectorAll('input.organize-square');
+        if(inputs.length > 0){
+            const lastInput = inputs[inputs.length - 1];
+            lastInput.remove();
+        }
+
+    }
+
+    secondPlusBtn.onclick = () => {
+        // input타입 생성
+        const inputElement = document.createElement('input');
+        inputElement.type = 'text'; // input 요소의 타입 설정
+        inputElement.name = 'newInput'; // input 요소의 이름 설정 (필요시)
+        inputElement.classList.add('organize-square');
+
+        // 생성된 input 요소를 form1에 추가
+        form2.appendChild(inputElement);
+    }
+
+    secondMinusBtn.onclick = () => {
+        const inputs = form2.querySelectorAll('input.organize-square');
+        if(inputs.length > 0){
+            const lastInput = inputs[inputs.length - 1];
+            lastInput.remove();
+        }
+
+    }
+
+    thirdPlusBtn.onclick = () => {
+        // input타입 생성
+        const inputElement = document.createElement('input');
+        inputElement.type = 'text'; // input 요소의 타입 설정
+        inputElement.name = 'newInput'; // input 요소의 이름 설정 (필요시)
+        inputElement.classList.add('organize-square');
+
+        // 생성된 input 요소를 form1에 추가
+        form3.appendChild(inputElement);
+    }
+
+    thirdMinusBtn.onclick = () => {
+        const inputs = form3.querySelectorAll('input.organize-square');
+        if(inputs.length > 0){
+            const lastInput = inputs[inputs.length - 1];
+            lastInput.remove();
+        }
+
+    }
+
+</script>
+
+<style>
+input{
+    border:none;
+    outline: none;
+}
+
+textarea{
+    resize: none;
+    border:none;
+    outline:none;
+}
+form{
+    width: 150px;
+}
+.organize-check{
+    display:flex;
+    justify-content: center;
+}
+.organize-check > button {
+    padding: 5px;
+}
+
+.organize-round-line-box{
+    width: 150px;
+    height: 150px;
+    flex-direction: column;
+    margin: 30px 10px;
+    display:flex;
+    justify-content: center;
+    
+}
+.organize-square-line-box{
+    width: 150px;
+    flex-direction: column;
+    margin: 30px 10px;
+    display:flex;
+    justify-content: center;
+}
+.organize-round-line{
+    width: 150px;
+    height: 5px;
+    border-radius: 30px;
+    background-color: #EEEDED;
+}
+.organize-rounds{
+    display:flex;
+    justify-content: center;
+    /* display:inline-flex; */
+    /* text-align: center; */
+    /* background-color: pink; */
+    /* width: 100%; */
+}
+.organize-button-line{
+    display:flex;
+    height: 30px;
+    justify-content: center;
+    /* display:inline-flex; */
+    /* text-align: center; */
+    /* background-color: pink; */
+    /* width: 100%; */
+}
+.organize-ceo-letter{
+    display:flex;
+    justify-content: center;
+    margin: 10px;
+}
+.organize-lines-box{
+    display:flex;
+    justify-content: center;
+}
+
+.organize-lines{
+    height: 80px;
+    width: 5px;
+    background-color: #EEEDED;
+    border-radius: 20px;
+}
+
+.organize-box{
+    display:flex;
+    justify-content: center;
+    /* display:inline-flex; */
+    /* background-color: blue; */
+    /* display:flex; */
+    /* justify-content: center; */
+}
+
+.organize-round{
+    width: 150px;
+    height: 150px;
+    background-color: #EEEDED;
+    margin-top: 30px;
+    border-radius: 50%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align:center;
+    /* margin-right: 30px; */
+}
+
+.organize-round-first{
+    width: 100px;
+    height: 100px;
+    background-color: #EEEDED;
+    margin-top: 30px;
+    border-radius: 50%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 280px;
+    margin-right: 30px;
+    /*background-image: url('../../static/organizationImage/wrtFileImageView.jpg');*/
+    /* margin-right: 30px; */
+}
+
+.organize-square{
+    width: 150px;
+    height: 50px;
+    background-color: #EEEDED;
+    margin-top: 10px;
+    /* border-radius: 50%; */
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align:center;
+    /* margin-right: 30px; */
+}
+
+.organize-square-button{
+    width: 150px;
+    height: 30px;
+    background-color: #EEEDED;
+    /* margin-top: 10px; */
+    /* border-radius: 50%; */
+    display:flex;
+    justify-content: end;
+    align-items: center;
+    /* margin-right: 30px; */
+}
+
+button{
+    margin: 0px 5px;
+}
+
+.organize-line{
+    /* position: absolute; */
+    width: 250px;
+    height: 100px;
+    background-color: #EEEDED;
+    margin-top: 30px;
+    padding: 3px;
+    /* display:flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* right: 40px; */
+    /* text-align: right; */
+    /* float:right; */
+}
+
+.table-list-design > div{
+    /* display:flex; */
+    /* justify-content: center; */
+
+}
+
+
+.nanum-myeongjo-regular{
+  font-family: "Nanum Myeongjo", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.nanum-gothic-coding-regular{
+  font-family: "Nanum Gothic Coding", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+.do-hyeon-regular{
+  font-family: "Do Hyeon", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+*{
+    font-family: "Do Hyeon"
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #EEEEEE;
+}
+
+.table-list {
+    padding-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+section {
+    position: relative;
+    width: 95vw;
+    background-color: white;
+}
+
+.table-list-design{
+    height: 80vh;
+    padding: 0 10px 10px 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.table-list-design::-webkit-scrollbar {
+    width: 10px;
+}
+.table-list-design::-webkit-scrollbar-thumb {
+    background-color:rgb(186, 186, 186);
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+.table-list-design::-webkit-scrollbar-track {
+    background-color:  #ffffff;
+    border-radius: 10px;
+}
+
+
+</style>
+  

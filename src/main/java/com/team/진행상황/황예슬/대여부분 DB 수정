@@ -1,0 +1,31 @@
+CREATE TABLE `reservation` (
+  `reservation_no` int NOT NULL AUTO_INCREMENT,
+  `reservation_employee` varchar(45) DEFAULT NULL,
+  `reservation_date` datetime DEFAULT NULL,
+  `return_date` datetime DEFAULT NULL,
+  `reservation_status` tinyint DEFAULT NULL,
+  `reservation_content` longtext,
+  `product_no` int NOT NULL,
+  PRIMARY KEY (`reservation_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+CREATE TABLE `organization_depart` (
+  `depart_no` int NOT NULL,
+  `depart_name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`depart_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `organization_depart_detail` (
+  `no` int NOT NULL,
+  `detail_name` varchar(45) DEFAULT NULL,
+  `depart_no` int DEFAULT NULL,
+  PRIMARY KEY (`no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `organization_represent` (
+  `represent_image` varchar(45) DEFAULT NULL,
+  `represent_content` varchar(45) DEFAULT NULL,
+  `represent_no` int NOT NULL,
+  PRIMARY KEY (`represent_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci

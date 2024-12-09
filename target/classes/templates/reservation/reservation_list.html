@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragment/main-layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/css/reservation/reservation_list.css" th:href="@{/css/reservation/reservation_list.css}" >
+    <script src="../../static/js/reservation/reservation_list.js" th:src="@{/js/reservation/reservation_list.js}" defer></script>
+</head>
+<body>
+<main layout:fragment="main">
+    <input type="hidden" id="hiddenData" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+    <div class="rental-table-list">
+        <h2>대여신청 목록</h2>
+        <form th:action="@{/reservation/list}" name="test" method="get">
+            <section class="rental-table-list-search">
+                <input type="text" name="query">
+                <button>검색</button>
+            </section>
+        </form>
+
+
+        <section class="rental-table-list-design">
+            <table border="1">
+                <thead class="rental-table-list-head">
+                    <tr>
+                        <td>순번</td>
+                        <td>카테고리</td>
+                        <td>비품명</td>
+                        <td>신청자</td>
+                        <td>신청일</td>
+                        <td>반납일</td>
+                        <td>사용목적</td>
+                        <td style="width:200px"></td>
+                    </tr>
+                </thead>
+                <tr th:each="reservation, stat: ${reservationList}">
+                    <td th:text="${stat.count}"><input type="hidden" th:text="reservation.reservationNo"></td>
+                    <td th:text="${reservation.reservationProduct.productCategory}"></td>
+                    <td><a th:href="|/reservation/check/${reservation.reservationNo}|" th:text="${reservation.reservationProduct.productName}"></a></td>
+                    <td th:text="${reservation.reservationEmployee}"></td>
+                    <td th:text="${#temporals.format(reservation.reservationDate, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${#temporals.format(reservation.returnDate, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${reservation.reservationContent}"></td>
+                    <td><button th:if="${reservation.reservationStatus == null or reservation.reservationStatus == true}" th:onclick="|reservation_update(${reservation.reservationNo}, ${reservation.reservationStatus})|">승인</button><button th:if="${reservation.reservationStatus == null}" th:onclick="|reservation_delete(${reservation.reservationNo})|">거부</button></td>
+                </tr>
+
+<!--                <tr>-->
+<!--                    <td>노트북</td>-->
+<!--                    <td>삼성 노트북</td>-->
+<!--                    <td>황예슬</td>-->
+<!--                    <td>2024-06-01</td>-->
+<!--                    <td>2024-06-11</td>-->
+<!--                    <td>회의....</td>-->
+<!--                    <td><button>승인</button><button>거부</button></td>-->
+<!--                </tr>-->
+                
+
+            </table>
+        </section>
+
+        <section class="rental-table-list-footer">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </section>
+    </div>
+</main>
+</body>
+</html>
+
+  

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/css/product/register_product.css" th:href="@{/css/product/register_product.css}">
+    <script src="../../static/js/product/read_product.js" th:src="@{/js/product/read_product.js}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+            crossOrigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+            integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
+            crossOrigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
+          integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ=="
+          crossOrigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+    <div class="object">
+        <h1>New Company</h1>
+        <h2>비품 확인</h2>
+        <form th:action="@{|/product/${product.productNo}|}" method="POST"  enctype="multipart/form-data" name="update-form">
+            <input type="hidden" id="productNo" th:value="${product.productNo}">
+            <div class="object-margin-design">
+                <label>
+                    <span>비품명</span>
+                    <input th:value="${product.productName}" type="text" name="productName" readonly>
+                </label>
+            </div>
+            
+            <div class="object-margin-design">
+                <label>
+                    <span>카테고리</span>
+                    <input th:value="${product.productCategory}" type="text" name="productCategory" readonly>
+                </label>
+            </div>
+            
+            <div class="object-margin-design">
+                <label>
+                    <span>갯수</span>
+                    <input th:value="${product.productAmount}" type="number" name="productAmount" readonly>
+                </label>
+            </div>
+            
+            <div class="object-margin-design">
+                <label>
+                    <span>구매일</span>
+                    <input th:value="${product.productPurchaseDate}" class="datepicker" name="productPurchaseDate" readonly>
+                </label>
+            </div>
+            
+            <div class="object-margin-design">
+                <label>
+                    <span>구매처</span>
+                    <input th:value="${product.productSupplier}" type="text" name="productSupplier" readonly>
+                </label>
+            </div>
+            
+            <div class="object-margin-design">
+                <label>
+                    <span>구매가격</span>
+                    <input th:value="${product.productPrice}" type="number" name="productPrice" readonly>
+                </label>
+            </div>
+            
+            <div>
+                <label class="object-photo">
+                    <span>비품사진</span>
+                    <div class="object-photo-line"></div>
+                    <div><span>등록</span></div>
+                </label>
+            </div>
+            <div style="margin-left:10px">
+                <button type="button" id="update">수정</button>
+                <button type="button" id="cancel">취소</button>
+            </div>
+        </form>
+
+
+      </div>
+      
+      
+</body>
+</html>
+
+  

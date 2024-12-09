@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragment/main-layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>게시판</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/css/notice/notice.css" th:href="@{/css/notice/notice.css}">
+    <script src="../../static/js/notice/notice.js" th:src="@{/js/notice/notice.js}" defer></script>
+</head>
+<main layout:fragment="main">
+    <body>
+
+    <div class="rental-table-list">
+        <h2>게시판</h2>
+        <section class="rental-table-list-search">
+            <div class="rental-search-input">
+                <label>
+                    <input class="search-tag-result" type="text">
+                </label>
+                <button class="rental-searchBtn" name="boardTitle">검색</button>
+            </div>
+            <div class="list-search-btn">
+                <button class="registration" name="btn" onclick="location.href='/Notice_Service/registration'">등록</button>
+                <button class="delete" id="deleteSelectedBtn" name="btn">선택 삭제</button>
+                <button class="delete" id="deleteAllBtn" name="btn">전체 삭제</button>
+            </div>
+        </section>
+
+        <section class="rental-table-list-design">
+            <table border="1">
+                <thead class="rental-table-list-head">
+                <tr>
+                    <td><input id="checkboxAll" type="checkbox" name="checkbox"></td>
+                    <td>번호</td>
+                    <td>구분</td>
+                    <td>제목</td>
+                    <td>내용</td>
+                    <td>이미지</td>
+                    <td>작성자</td>
+                    <td>등록일</td>
+                    <td>조회수</td>
+                </tr>
+
+
+                </thead>
+
+                <tr class="rental-table-boards" th:each="notice:${notices}">
+                    <td><input id="checkboxSelect" type="checkbox" name="checkbox"></td>
+                    <td class="board-no" th:text="${notice.boardNo}"></td>
+                    <td th:text="공지사항"></td>
+                    <td th:text="${notice.boardTitle}"></td>
+                    <td th:text="${notice.boardContent}"></td>
+                    <td th:text="${notice.boardImage}"></td>
+                    <td th:text="${notice.boardWriter}"></td>
+                    <td th:text="${notice.boardDate}"></td>
+                    <td th:text="${notice.boardViewCount}"></td>
+                </tr>
+
+                <!--            <tr th:each="notice:${notices}">-->
+                <!--                <td th:text="${notice.boardNo}">1</td>-->
+                <!--                <td>비품관리</td>-->
+                <!--                <td>삼성 노트북</td>-->
+                <!--                <td>삼성 노트북 삼성 노트북 삼성 노트북</td>-->
+                <!--                <td>이미지</td>-->
+                <!--                <td>황예슬</td>-->
+                <!--                <td>2024-07-15</td>-->
+                <!--                <td>1000</td>-->
+                <!--            </tr>-->
+
+                <!--            <tr>-->
+                <!--                <td>2</td>-->
+                <!--                <td>공지사항</td>-->
+                <!--                <td>근무 환경</td>-->
+                <!--                <td>근무 출근 준수</td>-->
+                <!--                <td>이미지</td>-->
+                <!--                <td>화예슬</td>-->
+                <!--                <td>2024-07-16</td>-->
+                <!--                <td>10,000</td>-->
+                <!--            </tr>-->
+
+
+            </table>
+        </section>
+
+        <section class="rental-table-list-footer" id="pagination">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </section>
+    </div>
+    </body>
+</main>
+</html>

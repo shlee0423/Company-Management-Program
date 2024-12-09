@@ -1,0 +1,94 @@
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+.object-manage {
+    padding-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.object-manage-section{
+    display:flex;
+    padding: 20px;
+}
+body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #EEEEEE;
+}
+
+section {
+    width: 95vw;
+    background-color: white;
+}
+
+.object-manage-content{
+    height: 65vh;
+    padding: 0px 20px 20px 20px;
+
+
+}
+
+.object-manage-content > textarea{
+    width:100%;
+    height: 100%;
+    background-color: #EEEDED;
+    /* border: 1px solid rgb(186, 186, 186); */
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.object-manage-section-content{
+    margin-right: 1rem;
+    height: 15px;
+    width: 45vw;
+    padding: 0.7rem;
+    background-color: #EEEDED;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    outline: none;
+    border-radius: 20px;
+}
+
+button{
+    width: 70px;
+    outline:none;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.object-manage-button-style{
+    flex: 1;
+    display:flex;
+    justify-content: end;
+}
+
+.object-manage-button-cancellation{
+    margin-left: 10px;
+    background-color: #FFC0C0;
+}
+
+.object-manage-button-register{
+    margin-left:10px;
+}
+.object-manage-button-modify{
+    margin-left: 10px;
+}
+.object-manage-button-cancel{
+    margin-left: 10px;
+}
+.object-manage-section-button-search{
+    display:flex;
+    align-items: center;
+    margin-right: 10px;
+    /* background-color:#dad9d9;  */
+    border-radius: 20px;
+    padding: 0 20px;
+    border: 2px solid rgba(0, 0, 0, 0.12);
+}
+textarea{
+    width: 90%;
+    height: 80%;
+}

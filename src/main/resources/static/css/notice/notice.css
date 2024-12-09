@@ -1,0 +1,152 @@
+.nanum-myeongjo-regular{
+    font-family: "Nanum Myeongjo", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.nanum-gothic-coding-regular{
+    font-family: "Nanum Gothic Coding", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+.do-hyeon-regular{
+    font-family: "Do Hyeon", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+*{
+    font-family: "Do Hyeon"
+}
+thead{
+    background-color : #D9D9D9;
+    position: sticky;
+    top: 0;
+}
+
+.rental-table-list-head > tr > td{
+    padding: 20px 15px;
+}
+
+tr > td{
+    padding: 15px;
+}
+
+table, tr, td{
+    border: 0;
+    border-bottom : 1px solid #E0E0E0;
+    border-collapse : collapse;
+}
+
+td:nth-child(7){
+    text-align: center;
+}
+
+select{
+    margin-left: 10px;
+}
+
+button{
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+td:nth-child(6){
+    width: 50px;
+    /* display:inline-block; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /* background-color: blue; */
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #EEEEEE;
+}
+
+section {
+    background-color: white;
+}
+table{
+    width: 100%;
+}
+
+input[type=text]{
+    margin-right: 1rem;
+    width: 45vw;
+    padding: 0.7rem;
+    background-color: #EEEDED;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    outline: none;
+    border-radius: 20px;
+}
+
+button{
+    width: 70px;
+    outline:none;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    cursor:pointer;
+}
+
+li {
+    list-style-type: none;
+    margin: 5px;
+}
+
+/***********************************************/
+.rental-table-list {
+    width: 80%;
+    min-width: 1000px;
+    margin: 50px auto;
+}
+.rental-table-list button{
+    width: 70px;
+    padding: 10px 0;
+    margin: unset;
+}
+
+.rental-table-list-search{
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+/***********************************************/
+
+.rental-table-list-design{
+    min-height: 63vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.rental-table-list-design::-webkit-scrollbar {
+    width: 10px;
+}
+.rental-table-list-design::-webkit-scrollbar-thumb {
+    background-color:rgb(186, 186, 186);
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+.rental-table-list-design::-webkit-scrollbar-track {
+    background-color:  #ffffff;
+    border-radius: 10px;
+}
+
+.rental-table-list-footer{
+    padding: 20px 10px;
+    display:flex;
+    justify-content: center;
+}
+.object-manage-section-button-search{
+    width: 10px;
+}

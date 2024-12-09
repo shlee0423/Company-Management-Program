@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.mapper.Mapper">
+
+
+<!-- @@@@@@@@@@@@@@@@회원가입@@@@@@@@@@@@@@@@-->
+    <insert id="insertEmployee">
+    insert into employee (employee_no,employee_ci, employee_name, employee_id, employee_password, employee_birthdate, employee_phone_number, employee_address, employee_detailed_address, employee_gender, employee_email, employee_dept,employee_image)
+    values (null, #{employeeCi}, #{employeeName}, #{employeeId}, #{employeePassword}, #{employeeBirthDate}, #{employeePhoneNumber}, #{employeeAddress}, #{employeeDetailedAddress}, #{employeeGender}, #{employeeEmail}, #{employeeDept},#{file.data});
+    </insert>
+
+    <insert id="insertEmployeeFile">
+        <selectKey keyProperty="employeeNo" order="BEFORE" resultType="int">
+            select last_insert_id()
+        </selectKey>
+        insert into file values
+        <foreach collection="files" item="file" separator=",">
+            (#{file.UUID},#{employeeNo},#{file.originalFileName},#{file.saveFileName},#{file.data});
+        </foreach>
+
+    </insert>
+
+
+    <!-- @@@@@@@@@@@@@@@@아이디 중복 검사@@@@@@@@@@@@@@@@-->
+    <select id="selectEmployeeIdIsAvailable" resultType="java.lang.Boolean">
+        SELECT COUNT(*) > 0 FROM employee WHERE employee_id = #{employeeId}
+    </select>
+
+
+    <!-- @@@@@@@@@@@@@@@@새 비밀번호 등록@@@@@@@@@@@@@@@@@-->
+
+
+
+    <!-- @@@@@@@@@@@@@@@@비품 등록@@@@@@@@@@@@@@@@-->
+    <insert id="insertProduct">
+        insert into product (product_no,product_name,product_category,product_amount,product_purchase_date,product_supplier,product_price,product_image,product_description)
+        values (null, #{productName}, #{productCategory}, #{productAmount}, #{productPurchaseDate}, #{productSupplier}, #{productPrice}, #{productImage}, #{productDescription});
+    </insert>
+
+
+
+    <!-- @@@@@@@@@@@@@@@@메모 등록@@@@@@@@@@@@@@@@-->
+    <insert id="insertMemo" parameterType="com.team.domain.MemoDTO">
+        insert into memo (memo_no,memo_writer,memo_name,memo_content,memo_date)
+        values (null, #{memoWriter.employeeId},#{memoName},#{memoContent},DEFAULT);
+    </insert>
+
+
+    <select id="selectMemoById" resultType="com.team.domain.MemoDTO" resultMap="selectMemoWithEmployee">
+        SELECT * FROM memo m
+        INNER JOIN employee e ON e.employee_id = m.memo_writer
+
+        <where>
+            m.memo_writer = #{employeeId}
+            <if test="query != null">
+                <choose>
+                    <when test="keyword == 'memoName'">
+                        AND m.memo_name LIKE CONCAT('%', #{query}, '%')
+                    </when>
+                    <when test="keyword == 'memoContent'">
+                        AND m.memo_content LIKE CONCAT('%', #{query}, '%')
+                    </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+    <resultMap id="selectMemoWithEmployee" type="com.team.domain.MemoDTO" autoMapping="true">
+        <id property="memoNo" column="memo_no"/>
+        <association property="memoWriter" javaType="com.team.domain.EmployeeDTO" autoMapping="true">
+            <id property="employeeId" column="employee_id"/>
+        </association>
+    </resultMap>
+
+    <!-- @@@@@@@@@@@@@@@@메모 보여주기 및 검색하기@@@@@@@@@@@@@@@@-->
+    <select id="selectMemoList" resultMap="MemoResultMap">
+        SELECT
+        m.*, e.employee_name
+        FROM
+        memo m
+        LEFT JOIN
+        employee e ON m.memo_writer = e.employee_no
+
+    </select>
+    <select id="selectEmployeeById" resultType="com.team.domain.EmployeeDTO">
+        select * from employee where employee_id = #{employeeId};
+    </select>
+    <select id="selectAll" resultType="com.team.domain.EmployeeDTO">
+        select * from employee;
+    </select>
+    <select id="getMemoByNo">
+        select * from memo where memo_no = #{memoNo};
+    </select>
+    <select id="selectMemoByNo" resultType="com.team.domain.MemoDTO">
+        select * from memo where memo_no = #{memoNo};
+    </select>
+
+
+    <resultMap id="MemoResultMap" type="com.team.domain.MemoDTO" autoMapping="true">
+        <id property="memoNo" column="memo_no" />
+        <result property="memoName" column="memo_name" />
+        <result property="memoContent" column="memo_content" />
+        <result property="memoDate" column="memo_date" />
+        <association property="memoWriter" javaType="com.team.domain.EmployeeDTO" autoMapping="true" />
+    </resultMap>
+
+    <!-- @@@@@@@@@@@@@@@@메모 삭제@@@@@@@@@@@@@@@@-->
+    <delete id="deleteMemoByNo">
+        delete from memo where memo_no=#{memoNo};
+    </delete>
+
+
+    <!-- @@@@@@@@@@@@@@@@프로필 수정@@@@@@@@@@@@@@@@-->
+    <update id="updateEmployee">
+        UPDATE employee SET employee_name = #{employeeName}, employee_email = #{employeeEmail},
+            employee_phone_number = #{employeePhoneNumber}, employee_address = #{employeeAddress},
+            employee_detailed_address = #{employeeDetailedAddress}
+            WHERE employee_id = #{employeeId};
+    </update>
+
+
+    <!-- @@@@@@@@@@@@@@@@파일 데이터 넣기@@@@@@@@@@@@@@@@-->
+
+
+
+</mapper>

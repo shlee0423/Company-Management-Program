@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.mapper.OrganizationMapper">
+        <!-- @@@@@@@@@@@@@@@대표 조직도 조회@@@@@@@@@@@@@@@@-->
+        <select id="selectRepresent" resultType="com.team.domain.organize.RepresentDTO">
+            SELECT * FROM organization_represent
+        </select>
+
+        <select id="selectDepart" resultType="com.team.domain.organize.DepartDTO">
+            SELECT * FROM organization_depart
+        </select>
+
+        <select id="selectDepartDetail" resultType="com.team.domain.organize.DepartDetailDTO">
+            SELECT * FROM organization_depart_detail
+        </select>
+
+        <delete id="DeleteDepartDetail" parameterType="com.team.domain.organize.DepartDetailDTO">
+            delete
+            from organization_depart_detail;
+        </delete>
+
+        <insert id="InsertDepartDetail" parameterType="com.team.domain.organize.DepartDetailDTO">
+            Insert Into organization_depart_detail (no,detail_name, depart_no)
+            values (null, #{detailName} , #{departNo})
+        </insert>
+
+        <update id="UpdateRepresentContent" parameterType="com.team.domain.organize.RepresentDTO">
+            Update organization_represent
+            set represent_content = #{representContent}
+        </update>
+
+        <update id="UpdateDepartData" parameterType="com.team.domain.organize.DepartDTO">
+            Update organization_depart
+            set depart_name = #{departName} where depart_no = #{departNo}
+        </update>
+
+<!--    &lt;!&ndash; @@@@@@@@@@@@@@@@대여 등록@@@@@@@@@@@@@@@@&ndash;&gt;-->
+<!--    <insert id="insertReservation" parameterType="com.team.domain.ReservationDTO">-->
+<!--        insert into reservation (reservation_no, reservation_employee, reservation_date, return_date, reservation_status, reservation_content, product_no)-->
+<!--        values (null, #{reservationEmployee}, #{reservationDate}, #{returnDate}, null, #{reservationContent}, #{reservationProduct.productNo});-->
+<!--    </insert>-->
+
+<!--    <update id="ReservationUpdate" parameterType="com.team.domain.ReservationDTO">-->
+<!--        update reservation-->
+<!--           set reservation_status = true-->
+<!--         where reservation_no = #{reservationNo}-->
+<!--    </update>-->
+
+<!--    <delete id="deleteReservation" parameterType="com.team.domain.ReservationDTO">-->
+<!--        delete-->
+<!--        from reservation-->
+<!--        where reservation_no = #{reservationNo}-->
+<!--    </delete>-->
+
+
+<!--    <select id="selectReservations" resultType="com.team.domain.ReservationDTO" resultMap="selectReservationsWithProduct">-->
+<!--        SELECT * FROM reservation R-->
+<!--            INNER JOIN `product` P-->
+<!--            ON `R`.`product_no` = `P`.`product_no`-->
+<!--        <if test="query != null">-->
+<!--            where `P`.`product_name` LIKE CONCAT('%', #{query}, '%');-->
+<!--        </if>-->
+<!--    </select>-->
+
+<!--    <resultMap id="selectReservationsWithProduct" type="com.team.domain.ReservationDTO" autoMapping="true">-->
+<!--        <id property="reservationNo" column="reservation_no"/>-->
+<!--        <association property="reservationProduct" javaType="com.team.domain.ProductDTO" autoMapping="true">-->
+<!--            <id property="productNo" column="product_no"/>-->
+<!--        </association>-->
+<!--    </resultMap>-->
+
+<!--    <select id="selectReservationByNo" resultType="com.team.domain.ReservationDTO" resultMap="selectReservationsWithProduct">-->
+<!--        SELECT *-->
+<!--          FROM reservation R-->
+<!--         INNER JOIN `product` P-->
+<!--            ON `R`.`product_no` = `P`.`product_no`-->
+<!--            where reservation_no = #{reservationNo};-->
+<!--    </select>-->
+
+</mapper>

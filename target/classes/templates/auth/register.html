@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/css/auth/register.css" th:href="@{/css/auth/register.css}">
+    <script src="/js/auth/register.js" th:src="@{/js/auth/register.js}" defer></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+
+
+</head>
+<body>
+<div class="join">
+    <h1>New Company</h1>
+    <h2>회원가입</h2>
+    <form id="joinForm" action="/auth/register" method="POST" enctype="multipart/form-data"
+          onsubmit="return validateForm()">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <div class="join-form-box">
+            <label>
+                <span>아이디</span>
+                <input type="text" name="employeeId" id="employeeId"/>
+            </label>
+            <div>
+                <div class="join-button-style" id="checkDuplicateBtn"><span>중복</span></div>
+                <span id="idAvailability"></span>
+            </div>
+        </div>
+
+        <div class="join-form-box">
+            <label>
+                <span>비밀번호</span>
+                <input type="password" name="employeePassword" id="employeePassword">
+            </label>
+        </div>
+
+        <div class="join-form-box">
+            <label class="join-input-design">
+                <input type="password" name="employeePassword2" id="employeePassword2">
+            </label>
+        </div>
+
+        <div class="join-form-box">
+            <label>
+                <span>이름</span>
+                <input type="text" name="employeeName" id="employeeName">
+            </label>
+        </div>
+
+        <div class="join-form-box">
+            <label>
+                <span>생년월일</span>
+                <input type="text" name="employeeBirthDate" id="employeeBirthDate">
+            </label>
+        </div>
+
+        <div class="join-form-box">
+            <label>
+                <span>휴대폰 번호</span>
+                <div class="join-button-box" id="phone">
+                    <input type="hidden" name="employeePhoneNumber" id="employeePhoneNumber">
+                    <select name="carrier">
+                        <option value="">LGU</option>
+                        <option value="">SKT</option>
+                        <option value="">KT</option>
+                    </select>
+                    <select name="prefix">
+                        <option value="010">010</option>
+                        <option value="011">011</option>
+                        <option value="06">06</option>
+                    </select>
+                    <span>-</span>
+                    <input type="tel" name="infix" style="width:63px;">
+                    <span style="margin-left:8px;">-</span>
+                </div>
+
+                <div class="tel-design">
+                    <input type="tel" name="postfix" class="border-top tel-width">
+                </div>
+
+            </label>
+            <input type="hidden" id="imp-uid" name="impUid">
+            <div id="join-admin-button"><span>인증</span></div>
+            <div th:if="${certErrorMsg}" th:text="${certErrorMsg}"></div>
+        </div>
+
+        <div class="join-form-box">
+            <label>
+                <span>이메일</span>
+                <div class="join-form-email">
+                    <input type="hidden" name="employeeEmail">
+                    <input type="text" name="emailFirst" class="join-form-email-first-input">
+                    <span>@</span>
+                    <input type="text" name="emailSecond" class="join-form-email-input">
+                    <select class="join-form-email-select" name="emailDomain">
+                        <option value="naver.com">네이버</option>
+                        <option value="gmail.com">지메일</option>
+                        <option value="daum.net">다음</option>
+                    </select>
+                </div>
+            </label>
+        </div>
+
+        <div class="join-form-box">
+            <label>
+                <span>주소</span>
+                <input type="text" name="employeeAddress" readonly>
+            </label>
+            <div class="join-button-style" id="findAddress"><span>우편번호 찾기</span></div>
+        </div>
+
+        <div class="join-form-box">
+            <label>
+                <span>상세주소</span>
+                <input type="text" name="employeeDetailedAddress">
+            </label>
+        </div>
+
+        <div class="join-form-box">
+            <div class="join-form-box-gender">
+                <span>성별</span>
+                <div class="join-gender-button">
+                    <input type="hidden" name="employeeGender">
+                    <input type="button" class="join-back-design" id=female value="여자">
+                    <input type="button" class="join-back-design" id=male value="남자">
+                </div>
+            </div>
+        </div>
+
+        <div class="join-form-box">
+            <label>
+                <span>부서</span>
+                <select name="employeeDept">
+                    <option value="인사">인사</option>
+                    <option value="개발">개발</option>
+                    <option value="기획">기획</option>
+                </select>
+            </label>
+        </div>
+
+        <div class="join-form-box">
+            <label class="join-profile-line">
+                <span>프로필 사진</span>
+<!--                이미지 처리해야함-->
+                <span class="join-profile"><input type="file" name="files" accept="image/jpeg, image/png"></span>
+            </label>
+            <div id="image-preview" class="image-preview"></div>
+        </div>
+
+        <button type="submit" id="registerBtn">확인</button>
+    </form>
+    <div class="join-back-login">
+        <a th:href="@{/auth/login}">로그인 화면으로</a>
+    </div>
+</div>
+
+
+<script>
+
+
+</script>
+</body>
+</html>
+
+<script>
+
+</script>

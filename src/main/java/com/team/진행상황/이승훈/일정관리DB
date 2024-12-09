@@ -1,0 +1,9 @@
+CREATE TABLE `schedule` (
+  `no` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `start` varchar(255) DEFAULT NULL,
+  `end` varchar(255) DEFAULT NULL,
+  `backgroundColor` varchar(255) DEFAULT NULL,
+  `text` text,
+  PRIMARY KEY (`no`)
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='		'

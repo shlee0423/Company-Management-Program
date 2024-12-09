@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.mapper.ProductMapper">
+    <!-- @@@@@@@@@@@@@@@@비품 등록@@@@@@@@@@@@@@@@-->
+    <insert id="insertProduct">
+        insert into product (product_no, product_name, product_category, product_amount,product_purchase_date,product_supplier,product_price,product_image,product_description,product_status)
+        values (null, #{productName}, #{productCategory}, #{productAmount}, #{productPurchaseDate}, #{productSupplier}, #{productPrice}, #{productImage}, #{productDescription}, #{productStatus});
+    </insert>
+
+    <!-- @@@@@@@@@@@@비품 확인@@@@@@@@@@@@@@@-->
+    <select id="selectProducts" resultType="com.team.domain.ProductDTO">
+        SELECT * FROM product
+        <where>
+            <!-- query 조건이 있을 때 -->
+            <if test="query != null">
+                product_name LIKE CONCAT('%', #{query}, '%')
+            </if>
+            <!-- rental 조건이 있을 때 -->
+            <if test="rental != null">
+                <choose>
+                    <when test="rental == 'rental-possible'">
+                        <if test="query != null">
+                            AND
+                        </if>
+                        product_status = 1
+                    </when>
+                    <when test="rental == 'rental-not-possible'">
+                        <if test="query != null">
+                            AND
+                        </if>
+                        product_status = 0
+                    </when>
+                </choose>
+            </if>
+        </where>
+        ORDER BY product_no DESC
+    </select>
+    <select id="selectProductByNo" resultType="com.team.domain.ProductDTO">
+        SELECT * FROM product WHERE product_no = #{productNo}
+    </select>
+    <!-- @@@@@@@@@@@@@@비품 수정@@@@@@@@@@@@@@@-->
+    <update id="updateProduct">
+        UPDATE product
+        SET
+            `product_name` = #{productName},
+            `product_category` = #{productCategory},
+            `product_amount` = #{productAmount},
+            `product_purchase_date` = #{productPurchaseDate},
+            `product_supplier` = #{productSupplier},
+            `product_price` = #{productPrice},
+            `product_image` = #{productImage},
+            `product_description` = #{productDescription}
+        WHERE `product_no` = #{productNo};
+    </update>
+
+    <delete id="deleteProduct">
+        DELETE FROM product WHERE product_no = #{productNo}
+    </delete>
+</mapper>

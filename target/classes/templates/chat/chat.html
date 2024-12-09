@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragment/main-layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MainPage</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!--    <link rel="stylesheet" href="../static/css/chat/chat.css" th:href="@{/css/chat/chat.css}">-->
+    <link rel="stylesheet" href="../../static/css/chat/chat.css" th:href="@{/css/chat/chat.css}">
+    <script async src="https://ga.jspm.io/npm:es-module-shims@1.5.1/dist/es-module-shims.js" crossorigin="anonymous"></script>
+<!--    <script type="module" src="../static/js/middle-section.js" defer></script>-->
+<!--    <script src="../static/js/left-section.js" defer></script>-->
+    <script type="module" src="../../static/js/chat/middle-section.js" th:src="@{/js/chat/middle-section.js}" defer></script>
+    <script src="../../static/js/chat/left-section.js" th:src="@{/js/chat/left-section.js}"></script>
+</head>
+<body>
+<main layout:fragment="main">
+    <section class="left-section">
+        <div class="search-container">
+            <input class="search-input" type="text" placeholder="검색">
+            <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+
+        <section>
+            <div class="chat-list">
+                <span class="chatroom">채팅방</span>
+                <button class="chat-item active" type="button" th:each="room:${rooms}" th:onclick="|location.href = '/chat?userid=asdf&roomNo=${room.roomNo}'|">
+                    <div class="avatar">
+                        <img src="../image/test.jpg" height="359" width="640"/>
+                    </div>
+                    <div class="chat-details" th:with="me=${session.get('user')}">
+                        <div class="chat-title" th:each="user: ${room.userId}"><span th:if="${user.employeeId != me.employeeId}" th:text="${user.employeeName}">Friend 1</span></div>
+                        <div class="last-message" th:text="${room.chats.size() == 0 ? '메세지가 없습니다' : room.chats[room.chats.size() - 1].chatMessage}">Hello there!</div>
+                    </div>
+                </button>
+<!--                <button class="chat-item">-->
+<!--                    <div class="avatar">-->
+<!--&lt;!&ndash;                        <img src="avatar2.jpg" alt="User Avatar">&ndash;&gt;-->
+<!--                    </div>-->
+<!--                    <div class="chat-details">-->
+<!--                        <div class="chat-title">Friend 2</div>-->
+<!--                        <div class="last-message">How are you?</div>-->
+<!--                    </div>-->
+<!--                </button>-->
+
+            </div>
+            <hr>
+            <div class="people-list">
+                <span class="chatroom">사람</span>
+                <button class="chat-item active" type="button" th:id="${emp.employeeId}" th:each="emp: ${employees}">
+                    <input type="hidden" id="empId" th:value="${emp.employeeId}">
+                    <div class="avatar">
+<!--                        <img src="../image/test.jpg" height="359" width="640"/>-->
+                    </div>
+                    <div class="chat-details">
+                        <div class="chat-title" th:text="${emp.employeeId}">Friend 1</div>
+                    </div>
+                </button>
+<!--                <button class="chat-item">-->
+<!--                    <div class="avatar">-->
+<!--                        <img src="avatar2.jpg" alt="User Avatar">-->
+<!--                    </div>-->
+<!--                    <div class="chat-details">-->
+<!--                        <div class="chat-title">Friend 2</div>-->
+<!--                    </div>-->
+<!--                </button>-->
+            </div>
+        </section>
+    </section>
+
+    <section class="center-section" th:if="${room == null}">
+        <div>채팅을 시작해보세요!</div>
+    </section>
+
+    <section class="center-section" th:if="${room != null}" th:with="user=${session.get('user')}">
+        <!--    로그인된 유저임. 나중에 제거? -->
+        <input type="hidden" class="user" th:id="${user.employeeId}">
+
+        <div class="chat-item">
+            <div class="avatar">
+                <img src="" alt="">
+            </div>
+            <div class="chat-title">홍길동</div>
+        </div>
+
+        <section class="chat-middel-box">
+            <div class="chat-middle">
+                <th:block th:each="chat: ${room.chats}">
+                    <div class="chat-item chat-item-box">
+                        <div class="avatar">
+                            <img src="" alt="">
+                        </div>
+                        <div class="chat-title" th:text="${chat.employee.employeeName}">홍길동</div>
+                    </div>
+                    <div th:class="${chat.employee.employeeId == user.employeeId ? 'chat-body' : 'chat-head'}">
+                        <span th:text="${chat.chatMessage}">오늘 진짜 힘들었음</span>
+                    </div>
+                </th:block>
+<!--                <div class="chat-head"><span>asdf</span></div>-->
+<!--                <div class="chat-body"><span>오늘 진짜 힘들었음</span></div>-->
+            </div>
+
+        </section>
+        
+        
+        <section class="chat-content">
+            <textarea class="message-input" th:id="${room.roomNo}"></textarea>
+        </section>
+        
+        
+
+    </section>
+
+    <section class="right-section">
+        <div class="search-container">
+            <input class="search-input" type="text" placeholder="검색">
+            <button class="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="text">대화상대</div>
+        <div class="invite-item">
+            <div class="avatar">
+                <button class="invite-btn"><i class="fas fa-plus"></i></button>
+            </div>
+            <div class="chat-details">
+                <div class="chat-title">Friend 1</div>
+            </div>
+        </div>
+        <div class="chat-item">
+            <div class="avatar">
+                <img src="avatar1.jpg" alt="User Avatar">
+            </div>
+            <div class="chat-details">
+                <div class="chat-title">Friend 2</div>
+            </div>
+        </div>
+        <div class="text">사진파일</div>
+        <div class="photo-grid">
+            <div class="photo-item">
+                <img src="image1.jpg" alt="Image 1">
+            </div>
+            <div class="photo-item">
+                <img src="image1.jpg" alt="Image 1">
+            </div>
+            <div class="photo-item">
+                <img src="image1.jpg" alt="Image 1">
+            </div>
+            <div class="photo-item">
+                <img src="image1.jpg" alt="Image 1">
+            </div>
+            <div class="photo-item">
+                <img src="image1.jpg" alt="Image 1">
+            </div>
+            <div class="photo-item">
+                <img src="image1.jpg" alt="Image 1">
+            </div>
+        </div>
+
+        <div class="text">첨부파일</div>
+        <div class="attachment-item chat-item">
+            <div class="avatar">
+                <img src="avatar2.jpg" alt="User Avatar">
+            </div>
+            <div class="chat-details">
+                <div class="chat-title">Friend 2</div>
+                <div class="file-detail">이름</div>
+                <div class="file-detail">날짜</div>
+                <div class="file-detail">용량</div>
+            </div>
+        </div>
+        <div class="attachment-item chat-item">
+            <div class="avatar">
+                <img src="avatar2.jpg" alt="User Avatar">
+            </div>
+            <div class="chat-details">
+                <div class="chat-title">Friend 2</div>
+                <div class="file-detail">이름</div>
+                <div class="file-detail">날짜</div>
+                <div class="file-detail">용량</div>
+            </div>
+        </div>
+        <div class="attachment-item chat-item">
+            <div class="avatar">
+                <img src="avatar2.jpg" alt="User Avatar">
+            </div>
+            <div class="chat-details">
+                <div class="chat-title">Friend 2</div>
+                <div class="file-detail">이름</div>
+                <div class="file-detail">날짜</div>
+                <div class="file-detail">용량</div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+</body>
+</html>

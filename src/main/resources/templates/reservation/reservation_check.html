@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/css/reservation/reservation.css" th:href="@{/css/reservation/reservation.css}" >
+
+</head>
+<body>
+<div class="rental">
+    <h2>대여 확인</h2>
+    <form>
+        <div class="rental-margin-design">
+            <label>
+                <span>신청자</span>
+                <input type="text" th:value="${reservation.reservationEmployee}" readonly/>
+            </label>
+        </div>
+
+        <div class="rental-margin-design">
+            <label>
+                <span>비품명</span>
+                <input type="text" th:value="${reservation.reservationProduct.productName}" readonly/>
+            </label>
+        </div>
+
+        <div class="rental-margin-design">
+            <label>
+                <span>카테고리</span>
+                <input type="text" th:value="${reservation.reservationProduct.productCategory}" readonly/>
+            </label>
+        </div>
+
+        <div class="rental-margin-design">
+
+            <label>
+                <span>대여기간</span>
+                <div class="rental-date-line">
+                    <input type="date" th:value="${#temporals.format(reservation.reservationDate, 'yyyy-MM-dd')}" readonly>
+                    <input type="date" th:value="${#temporals.format(reservation.reservationDate, 'yyyy-MM-dd')}" readonly>
+                </div>
+            </label>
+        </div>
+
+        <div class="rental-margin-design">
+            <label>
+                <span>시간</span>
+                <div class="rental-date-line">
+                    <input type="time" th:value="${#temporals.format(reservation.reservationDate, 'HH:mm')}" readonly>
+                    <input type="time" th:value="${#temporals.format(reservation.reservationDate, 'HH:mm')}" readonly>
+                </div>
+            </label>
+        </div>
+
+        <div>
+            <label class="rental-purpose">
+                <span>사용목적</span>
+                <textarea class="rental-purpose-line" th:text="${reservation.reservationContent}" readonly></textarea>
+            </label>
+        </div>
+
+        <div class="rental-button-box">
+            <button type="button" th:onclick="|location.href='/reservation/list'|">취소</button>
+        </div>
+    </form>
+
+</div>
+
+
+</body>
+</html>
+

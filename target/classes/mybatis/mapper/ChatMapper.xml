@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.mapper.ChatMapper">
+
+    <insert id="insertUserInRoom">
+        INSERT INTO room_people VALUES (#{roomNo}, #{employeeId})
+    </insert>
+    <insert id="insertChat">
+        INSERT INTO chat (`chat_no`,
+                          `room_no`,
+                          `employee_id`,
+                          `chat_message`,
+                          `chat_status`)
+        VALUES (null, #{roomNo}, #{chatDTO.employee.employeeId},#{chatDTO.chatMessage},#{chatDTO.chatStatus})
+    </insert>
+
+    <select id="selectEmployeeById" resultType="com.team.domain.EmployeeDTO">
+        select * from `employee` where employee_id = #{employeeId};
+    </select>
+    <select id="selectAllWithoutMe" resultType="com.team.domain.EmployeeDTO">
+        select * from employee WHERE employee_id != #{employeeId};
+    </select>
+
+    <select id="selectRooms" resultType="com.team.domain.RoomDTO" resultMap="selectRoomWithEmployee">
+        SELECT
+            R.*,
+            E.*,
+            C.*
+        FROM `room_people` R
+                 INNER JOIN `employee` E
+                            ON R.user_id = E.employee_id
+                 LEFT OUTER JOIN `chat` C
+                                 ON E.employee_id = C.employee_id
+        WHERE R.room_no IN (SELECT room_no FROM `room_people` WHERE user_id = #{employeeId})
+    </select>
+
+    <resultMap id="selectRoomWithEmployee" type="com.team.domain.RoomDTO" autoMapping="true">
+        <id property="roomNo" column="room_no"/>
+
+        <collection property="userId" ofType="com.team.domain.EmployeeDTO" javaType="list" autoMapping="true">
+            <id property="employeeId" column="employee_id"/>
+        </collection>
+
+        <collection property="chats" ofType="com.team.domain.ChatDTO" javaType="list" autoMapping="true">
+            <id property="chatNo" column="chat_no" />
+            <association property="employee" javaType="com.team.domain.EmployeeDTO">
+                <id property="employeeId" column="chat_employee" />
+                <result property="employeeName" column="chat_employee_name" />
+            </association>
+        </collection>
+    </resultMap>
+</mapper>

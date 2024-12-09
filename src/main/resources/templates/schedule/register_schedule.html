@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/css/schedule/register_schedule.css" th:href="@{/css/schedule/register_schedule.css}">
+    <script src="../../static/js/schedule/register_schedule.js" th:src="@{/js/schedule/register_schedule.js}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- datetimepicker 불러오기 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/jquery.datetimepicker.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js"></script>
+
+    <!-- 제이쿼리 UI datepicker 불러오기 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+</head>
+<body>
+    <div class="schedule">
+        <h2>일정 등록</h2>
+        <form th:action="@{/schedule/register_schedule}" method="POST"  enctype="multipart/form-data" name="insert-form">
+            <div class="schedule-margin-design">
+                <label>
+                    <span>일정제목</span>
+                    <input type="text" name="scheduleTitle">
+                </label>
+            </div>
+            
+            <div class="schedule-margin-design">
+                <label>
+                    <span>시작일</span>
+                    <input type="text" class="start-date" name="scheduleStartDate" autocomplete="off">
+                </label>
+            </div>
+
+            <div class="schedule-margin-design">
+                <label>
+                    <span>종료일</span>
+                    <input type="text" class="end-date" name="scheduleEndDate" autocomplete="off">
+                </label>
+            </div>
+<!--            <div class="schedule-margin-design">-->
+<!--                <label>-->
+<!--                    <span>시간</span>-->
+<!--                    <div class="schedule-date-line">-->
+<!--                        <input type="time">-->
+<!--                        <input type="time">-->
+<!--                    </div>-->
+<!--                </label>-->
+<!--            </div>-->
+            
+            <div class="schedule-margin-design">
+                <label>
+                    <span>장소</span>
+                    <input type="text" name="schedulePlace">
+                </label>
+            </div>
+            
+            <div class="schedule-margin-design">
+                <label>
+                    <span>초대</span>
+                    <input type="text" name="scheduleGuests">
+                </label>
+            </div>
+            
+            <div class="schedule-description">
+                <label>
+                    <span>설명</span>
+                    <textarea class="schedule-description-line" name="scheduleRemarks" id=""></textarea>
+                </label>
+                <!-- <div class="schedule-register-button"><span>등록</span></div> -->
+            </div>
+          
+        </form>
+            <div>
+                <button id="submitBtn" type="submit">확인</button>
+                <button id="cancelBtn" type="button">취소</button>
+            </div>
+      </div>
+      
+      
+</body>
+</html>
+
+<style>
+
+</style>
+  

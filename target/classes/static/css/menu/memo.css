@@ -1,0 +1,184 @@
+.nanum-myeongjo-regular{
+    font-family: "Nanum Myeongjo", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.nanum-gothic-coding-regular{
+    font-family: "Nanum Gothic Coding", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+.do-hyeon-regular{
+    font-family: "Do Hyeon", sans-serif;
+    font-weight: 400;
+    font-stylxe: normal;
+}
+
+*{
+    font-family: "Do Hyeon"
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+td:nth-child(6){
+    width: 50px;
+    /* display:inline-block; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /* background-color: blue; */
+}
+.table-list-button-style{
+    padding: 10px 0px;
+    flex: 1;
+    display:flex;
+    justify-content: end;
+    /* margin-right: 15px; */
+}
+
+.table-list-button-delete{
+    margin-left: 10px;
+    background-color: #FFC0C0;
+}
+.rental-table-list-search{
+    display:flex;
+    padding: 10px;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #EEEEEE;
+}
+
+.rental-table-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+section {
+    display:flex;
+    background-color: white;
+}
+.memo-history{
+    max-width: 600px;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(10vw, 10vw);
+    /* margin-right: 10px; */
+    height: 63vh;
+    /* background-color: whitesmoke; */
+    overflow-y:scroll;
+    overflow-x:hidden;
+    border-radius: 20px;
+}
+
+.memo-history > div{
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 20px;
+    margin : 5px;
+    cursor: pointer;
+
+}
+
+h2{
+    display:flex;
+    justify-content:center;}
+
+.memo-text{
+    margin-left: 10px;
+    /* border-radius: 20px; */
+    width: 30vw;
+    /*width: calc(50vw - 20px);*/
+    height: calc(63vh - 25px);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background-color: rgb(251, 255, 184);
+    resize:none;
+    outline:none;
+    padding: 10px;
+}
+.rental-table-list-design{
+    /* height: 63vh; */
+    padding: 0 10px 10px 10px;
+    /* overflow-y: scroll; */
+    /* overflow-x: hidden; */
+}
+
+.rental-memo-box{
+    display:flex;
+    justify-content:  center;
+    margin:30px;
+}
+main{
+    /*margin: 100px;*/
+    /*display:flex;*/
+    /*justify-content: center;*/
+}
+
+/* .memo-history::-webkit-scrollbar {
+    width: 10px;
+}
+.memo-history::-webkit-scrollbar-thumb {
+    background-color:rgb(186, 186, 186);
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+.memo-history::-webkit-scrollbar-track {
+    background-color:  #ffffff;
+    border-radius: 10px;
+} */
+table{
+    width: 94vw;
+}
+
+input[type=text]{
+    margin-right: 1rem;
+    width: 20vw;
+    /* width: calc(45vw - 90px); */
+    padding: 0.7rem;
+    background-color: #EEEDED;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    outline: none;
+    border-radius: 20px;
+}
+
+button{
+    width: 70px;
+    outline:none;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    cursor:pointer;
+}
+
+.rental-table-list-footer{
+    padding: 20px 10px;
+    display:flex;
+    justify-content: center;
+}
+li{
+    list-style-type: none;
+    margin: 5px;
+}
+
+#memo_name{
+}
+
+.memo-detail{
+    overflow: hidden; /* 넘치는 부분 숨김 */
+    text-overflow: ellipsis; /* 글자가 너무 길 경우 ...으로 표시 */
+    overflow-wrap: break-word; /* 단어 단위로 줄바꿈 설정 */
+    background-color: rgb(200,200,200);
+    border: none;
+
+}
+.memo-detail > span:nth-child(3),
+.memo-detail > span:nth-child(4) {
+    display: block;
+}

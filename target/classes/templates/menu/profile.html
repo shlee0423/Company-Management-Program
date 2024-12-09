@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragment/main-layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/css/menu/profile.css" th:href="@{/css/menu/profile.css}">
+
+</head>
+<body>
+<main layout:fragment="main">
+    <div class="schedule">
+        <h2>프로필 관리</h2>
+        <form method="get" th:action="|/menu/profile/${employeeId}|"   enctype="multipart/form-data">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <div class="profile-margin-design">
+                <label>
+                    <span>이름</span>
+                    <input type="text" th:value="${employee.employeeName}"/>
+                </label>
+            </div>
+            
+            <div class="profile-margin-design">
+                <label>
+                    <span>이메일</span>
+                    <input type="text" th:value="${employee.employeeEmail}">
+                </label>
+            </div>
+            
+            <div class="profile-margin-design">
+                <label>
+                    <span>전화번호</span>
+                    <input type="text" th:value="${employee.employeePhoneNumber}">
+                </label>
+            </div>
+            
+            <div class="profile-margin-design">
+                <label>
+                    <span>주소</span>
+                    <input type="text" th:value="${employee.employeeAddress}">
+                </label>
+            </div>
+
+            <div class="profile-margin-design">
+                <label>
+                    <span>상세 주소</span>
+                    <input type="text" th:value="${employee.employeeDetailedAddress}">
+                </label>
+            </div>
+            
+            <div class="profile-margin-design">
+                <label>
+                    <span>사진</span>
+                    <img th:if="${profileImageBase64 != null}" th:src="|data:image/jpeg;base64,${profileImageBase64}|" alt="프로필 이미지"/>
+                </label>
+            </div>
+            <button type="submit">프로필 변경</button>
+        </form>
+
+
+      </div>
+</main>
+</body>
+</html>

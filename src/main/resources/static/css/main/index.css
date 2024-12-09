@@ -1,0 +1,55 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 헤더 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 서브 메뉴 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 메인 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.main-div {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+    width: 80vw;
+    height: 80vh;
+    background-color: #fff;
+    padding: 10px;
+    border: 2px solid #ccc;
+}
+
+.main-item {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color:black;
+    font-size: 20px;
+    border: 1px solid black;
+}
+
+
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 푸터 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+.fa-solid{
+    margin-bottom: 10px;
+    display: inline-block;
+    font-size: 100px;
+}
+.fa-regular{
+    margin-bottom: 10px;
+    display: inline-block;
+    font-size: 100px;
+}

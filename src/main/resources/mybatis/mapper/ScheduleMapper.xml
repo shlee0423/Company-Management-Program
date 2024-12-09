@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.mapper.ScheduleMapper">
+
+    <select id="selectSchedules" resultType="com.team.domain.ScheduleDTO">
+        SELECT * FROM schedule WHERE employee_id = #{employeeId}
+    </select>
+    <insert id="insertCalendar">
+        INSERT INTO schedule
+        VALUES
+            (NULL, #{title}, #{start}, #{end}, #{backgroundColor}, #{text}, #{employeeId})
+    </insert>
+    <select id="selectScheduleByNo" resultType="com.team.domain.ScheduleDTO">
+        SELECT * FROM schedule
+        WHERE no = #{no}
+    </select>
+
+    <update id="updateSchedule">
+        UPDATE schedule
+        SET
+        `title` = #{title},
+        `start` = #{start},
+        `end` = #{end},
+        `backgroundColor` = #{backgroundColor},
+        `text` = #{text}
+        WHERE `no` = #{no};
+    </update>
+
+    <delete id="deleteSchedule">
+        DELETE FROM schedule
+        WHERE no = #{no};
+    </delete>
+</mapper>

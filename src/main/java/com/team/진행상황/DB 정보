@@ -1,0 +1,84 @@
+schema : team
+
+
+수정 사항
+24.07.19
+
+CREATE TABLE `board` (
+  `board_no` int NOT NULL AUTO_INCREMENT,
+  `board_title` varchar(45) DEFAULT NULL,
+  `board_writer` varchar(45) DEFAULT NULL,
+  `board_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `board_content` longtext,
+  `board_category` varchar(45) DEFAULT NULL,
+  `board_view_count` int DEFAULT NULL,
+  `board_image` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`board_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `employee` (
+  `employee_no` int NOT NULL AUTO_INCREMENT,
+  `employee_ci` varchar(255) DEFAULT NULL,
+  `employee_name` varchar(255) DEFAULT NULL,
+  `employee_id` varchar(255) DEFAULT NULL,
+  `employee_password` varchar(255) DEFAULT NULL,
+  `employee_birthdate` datetime NOT NULL,
+  `employee_phone_number` varchar(255) DEFAULT NULL,
+  `employee_address` varchar(255) DEFAULT NULL,
+  `employee_detailed_address` varchar(255) DEFAULT NULL,
+  `employee_gender` varchar(255) DEFAULT NULL,
+  `employee_email` varchar(255) DEFAULT NULL,
+  `employee_dept` varchar(45) DEFAULT NULL,
+  `employee_image` longblob,
+  PRIMARY KEY (`employee_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `employee_image_file` (
+  `image_number` int NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(45) NOT NULL,
+  `original_name` varchar(45) NOT NULL,
+  `save_name` varchar(45) NOT NULL,
+  `data` longblob NOT NULL,
+  PRIMARY KEY (`image_number`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `file` (
+  `uuid` varchar(45) NOT NULL,
+  `employee_id` varchar(45) DEFAULT NULL,
+  `data` longblob,
+  PRIMARY KEY (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `memo` (
+  `memo_no` int NOT NULL AUTO_INCREMENT,
+  `memo_writer` varchar(45) DEFAULT NULL,
+  `memo_name` varchar(45) DEFAULT NULL,
+  `memo_content` longtext,
+  `memo_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`memo_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `product` (
+  `product_no` int NOT NULL AUTO_INCREMENT,
+  `product_name` varchar(45) DEFAULT NULL,
+  `product_category` varchar(45) DEFAULT NULL,
+  `product_amount` varchar(45) DEFAULT NULL,
+  `product_purchase_date` date DEFAULT NULL,
+  `product_supplier` varchar(45) DEFAULT NULL,
+  `product_price` int DEFAULT NULL,
+  `product_image` varchar(45) DEFAULT NULL,
+  `product_description` longtext,
+  `product_status` tinyint DEFAULT NULL,
+  PRIMARY KEY (`product_no`),
+  UNIQUE KEY `product_name_UNIQUE` (`product_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `schedule` (
+  `no` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `start` varchar(255) DEFAULT NULL,
+  `end` varchar(255) DEFAULT NULL,
+  `backgroundColor` varchar(255) DEFAULT NULL,
+  `text` text,
+  PRIMARY KEY (`no`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='		'

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragment/main-layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/css/product/manage_product.css" th:href="@{/css/product/manage_product.css}">
+    <script src="../../static/js/product/manage_product.js" th:src="@{/js/product/manage_product.js}" defer></script>
+</head>
+<body>
+    <main layout:fragment="main">
+    <form class="table-list">
+        <h2>비품 관리</h2>
+        <section class=" table-list-search">
+            <input name="query" placeholder="비품명으로 검색" type="text">
+            <button type="submit">검색</button>
+            <select name="rental" id="">
+                <option value="">전체</option>
+                <option value="renting">대여중</option>
+                <option value="rental-possible">대여가능</option>
+                <option value="rental-not-possible">대여불가능</option>
+            </select>
+
+            <div class="table-list-button-style">
+                <button type="button" onclick="location.href='/product/register_product'">등록</button>
+                <button type="button" class="table-list-button-delete" id="table-list-delete-btn">삭제</button>
+            </div>
+        </section> 
+
+        <section class="table-list-design">
+            <table border="1">
+                <thead class="table-list-head">
+                    <tr>
+                        <td><input type="checkbox" class="all-select"></td>
+                        <td>비품ID</td>
+                        <td>비품명</td>
+                        <td>카테고리</td>
+                        <td>수</td>
+                        <td>구매일</td>
+                        <td>구매처</td>
+                        <td>가격</td>
+                        <td>부서</td>
+                        <td>대여상태</td>
+                    </tr>
+                </thead>
+
+                <tr class="product" th:each="product: ${products}">
+                    <td><input type="checkbox"></td>
+                    <td class="product-no" th:text="${product.productNo}">2020001</td>
+                    <td><a class="name" th:href="|/product/${product.productNo}|" th:text="${product.productName}">쿠크다스</a></td>
+                    <td class="category" th:text="${product.productCategory}">과자</td>
+                    <td class="amount" th:text="${product.productAmount}">2개</td>
+                    <td class="purchase-date" th:text="${product.productPurchaseDate}">2024/06/11</td>
+                    <td class="supplier" th:text="${product.productSupplier}">쿠팡</td>
+                    <td class="price" th:text="${product.productPrice}">4000</td>
+                    <td class="description" th:text="${product.productDescription}">부서ID</td>
+                    <td th:if="${product.productStatus == true && product.productAmount != 0}">
+                        <a th:href="@{/reservation/reservation(productNo=${product.productNo})}">대여가능</a>
+                    </td>
+                    <td th:if="${product.productStatus == false || product.productAmount == 0}">대여불가</td>
+                </tr>
+
+<!--                <tr>-->
+<!--                    <td><input type="checkbox"></td>-->
+<!--                    <td>2020001</td>-->
+<!--                    <td>쿠크다스</td>-->
+<!--                    <td>과자</td>-->
+<!--                    <td>2개</td>-->
+<!--                    <td>2024/06/11</td>-->
+<!--                    <td>쿠팡</td>-->
+<!--                    <td>4000</td>-->
+<!--                    <td>부서ID</td>-->
+<!--                    <td><button>대여가능</button></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td><input type="checkbox"></td>-->
+<!--                    <td>2020001</td>-->
+<!--                    <td>쿠크다스</td>-->
+<!--                    <td>과자</td>-->
+<!--                    <td>2개</td>-->
+<!--                    <td>2024/06/11</td>-->
+<!--                    <td>쿠팡</td>-->
+<!--                    <td>4000</td>-->
+<!--                    <td>부서ID</td>-->
+<!--                    <td><button style="background-color: rgb(255, 172, 172);">대여불가능</button></td>-->
+<!--                </tr>-->
+            </table>
+        </section>
+
+        <section class="table-list-footer">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </section>
+    </form>
+
+    </main>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragment/main-layout}"
+>
+<head>
+    <meta charset='utf-8' />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- 화면 해상도에 따라 글자 크기 대응(모바일 대응) -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <!-- jquery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- fullcalendar CDN -->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js'></script>
+    <!-- fullcalendar 언어 CDN -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script>
+    <script src="../../static/js/schedule/calendar.js" th:src="@{/js/schedule/calendar.js}" defer></script>
+    <style>
+        /* body 스타일 */
+        body{
+            padding:0 !important;
+            margin: 0 !important;
+        }
+        html, body {
+            overflow: scroll;
+            font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+            font-size: 14px;
+
+        }
+        /* 캘린더 위의 해더 스타일(날짜가 있는 부분) */
+        .fc-header-toolbar {
+            padding-top: 1em;
+            padding-left: 1em;
+            padding-right: 1em;
+        }
+
+    </style>
+
+</head>
+<body style="padding:30px;">
+<!-- calendar 태그 -->
+<main layout:fragment="main">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <div id='calendar-container'>
+        <div id='calendar'></div>
+    </div>
+
+<!-- Modal -->
+<div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="insertLabel">일정 추가</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                작성자 : <input type="text" id="employeeId" class="form-control" th:value="${employee.employeeName}" readonly> <br>
+                일정이름 : <input type="text" class="form-control" id="insertTitle"/><br/>
+                시작시간 : <input type="datetime-local" id="insertStart" class="start-date form-control" autocomplete="off"><br/>
+
+                종료시간 : <input type="datetime-local" id="insertEnd"  class="end-date form-control" autocomplete="off"><br/>
+                배경색상 :
+                <select id="insertColor" class="form-control">
+                    <option value="blue">파랑색</option>
+                    <option value="orange">주황색</option>
+                    <option value="yellow">노랑색</option>
+                    <option value="green">초록색</option>
+                    <option value="indigo">남색</option>
+                    <option value="purple">보라색</option>
+                </select> <br>
+                내용 : <textarea id="insertText" class="form-control"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="insertBtn">추가</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="checkModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="checkLabel">일정 확인</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="checkId">
+                일정제목: <span id="checkTitle"></span> <br>
+                시작시간: <span id="checkStart"></span> <br>
+                종료시간: <span id="checkEnd"></span> <br>
+                내용: <span id="checkText"></span> <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="editBtn">수정</button>
+                <button type="button" class="btn btn-danger" id="deleteBtn">삭제</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="updateLabel">일정 수정</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="updateId">
+                일정이름 : <input type="text" id="updateTitle"/><br/>
+                시작시간 : <input type="datetime-local" id="updateStart" class="start-date" autocomplete="off"><br/>
+                종료시간 : <input type="datetime-local" id="updateEnd" class="end-date" autocomplete="off"><br/>
+                배경색상 :
+                <select id="updateColor">
+                    <option value="blue">파랑색</option>
+                    <option value="orange">주황색</option>
+                    <option value="yellow">노랑색</option>
+                    <option value="green">초록색</option>
+                    <option value="indigo">남색</option>
+                    <option value="purple">보라색</option>
+                </select> <br>
+                내용 : <textarea id="updateText"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="updateBtn">확인</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+</body>
+</html>

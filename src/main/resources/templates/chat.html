@@ -1,0 +1,266 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="ko"-->
+<!--      xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"-->
+<!--      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"-->
+<!--      layout:decorate="~{fragment/main-layout}"-->
+
+<!--&gt;-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>MainPage</title>-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">-->
+<!--    <link rel="stylesheet" href="../static/css/chat/chat.css" th:href="@{/css/chat/chat.css}">-->
+
+<!--</head>-->
+<!--<body>-->
+<!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
+<!--&lt;!&ndash; <header>-->
+<!--    <nav class="navbar">-->
+<!--        <div class="logo"><a href="#" class="main-icon">New Company</a></div>-->
+<!--        <ul class="nav-links">-->
+<!--            <li class="dropdown">-->
+<!--                <a href="#" class="dropdown">공유드라이브</a>-->
+<!--                <div class="dropdown-content">-->
+<!--                    <a href="#">test1</a>-->
+<!--                    <a href="#">test2</a>-->
+<!--                    <a href="#">test3</a>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--            <li><a href="#">마이페이지</a></li>-->
+<!--            <li><a href="#">회사관리</a></li>-->
+<!--            <li><a href="#">Chat</a></li>-->
+<!--            <li><a href="#">로그아웃</a></li>-->
+<!--        </ul>-->
+<!--    </nav>-->
+<!--</header> &ndash;&gt;-->
+
+<!--<main layout:fragment="main">-->
+<!--    <section class="left-section">-->
+<!--        <div class="search-container">-->
+<!--            <input class="search-input" type="text" placeholder="검색">-->
+<!--            <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>-->
+<!--        </div>-->
+
+<!--        <div class="chat-list">-->
+<!--            <span class="chatroom">채팅방</span>-->
+<!--            <div class="chat-item active">-->
+
+<!--                <div class="avatar">-->
+<!--                    <img src="../image/test.jpg" height="359" width="640"/>-->
+<!--                </div>-->
+<!--                <div class="chat-details">-->
+<!--                    <div class="chat-title">Friend 1</div>-->
+<!--                    <div class="last-message">Hello there!</div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="chat-item">-->
+<!--                <div class="avatar">-->
+<!--                    <img src="avatar2.jpg" alt="User Avatar">-->
+<!--                </div>-->
+<!--                <div class="chat-details">-->
+<!--                    <div class="chat-title">Friend 2</div>-->
+<!--                    <div class="last-message">How are you?</div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--        </div>-->
+<!--    </section>-->
+<!--    <section class="center-section">-->
+<!--        <div class="chat-item">-->
+<!--            <div class="avatar">-->
+<!--                <img src="" alt="">-->
+<!--            </div>-->
+<!--            <div class="chat-title">홍길동</div>-->
+<!--        </div>-->
+
+<!--        <section class="chat-middel-box">-->
+<!--            <div class="chat-middle">-->
+<!--                <div class="chat-item chat-item-box">-->
+<!--                    <div class="avatar">-->
+<!--                        <img src="" alt="">-->
+<!--                    </div>-->
+<!--                    <div class="chat-title">홍길동</div>-->
+<!--                </div>-->
+<!--    -->
+<!--                <div class="chat-head"><span>오늘 진짜 힘들었음</span></div>-->
+<!--                <div class="chat-body"><span>어쩌구 ㅇㄹㅇㄹ</span></div>-->
+<!--            </div>-->
+
+<!--            <div class="chat-middle">-->
+<!--                <div class="chat-item">-->
+<!--                    <div class="avatar">-->
+<!--                        <img src="" alt="">-->
+<!--                    </div>-->
+<!--                    <div class="chat-title">홍길동</div>-->
+<!--                </div>-->
+<!--    -->
+<!--                <div class="chat-head">-->
+<!--                    <span>오늘 진짜 힘들었음</span>-->
+<!--                </div>-->
+<!--                <div class="chat-body">-->
+<!--                    <span>어쩌구 ㅇㄹㅇㄹ</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="chat-middle">-->
+<!--                <div class="chat-item">-->
+<!--                    <div class="avatar">-->
+<!--                        <img src="" alt="">-->
+<!--                    </div>-->
+<!--                    <div class="chat-title">홍길동</div>-->
+<!--                </div>-->
+<!--    -->
+<!--                <div class="chat-head">-->
+<!--                    <span>오늘 진짜 힘들었음</span>-->
+<!--                </div>-->
+<!--                <div class="chat-body">-->
+<!--                    <span>어쩌구 ㅇㄹㅇㄹ</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="chat-middle">-->
+<!--                <div class="chat-item">-->
+<!--                    <div class="avatar">-->
+<!--                        <img src="" alt="">-->
+<!--                    </div>-->
+<!--                    <div class="chat-title">홍길동</div>-->
+<!--                </div>-->
+<!--    -->
+<!--                <div class="chat-head">-->
+<!--                    <span>오늘 진짜 힘들었음</span>-->
+<!--                </div>-->
+<!--                <div class="chat-body">-->
+<!--                    <span>어쩌구 ㅇㄹㅇㄹ</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="chat-middle">-->
+<!--                <div class="chat-item">-->
+<!--                    <div class="avatar">-->
+<!--                        <img src="" alt="">-->
+<!--                    </div>-->
+<!--                    <div class="chat-title">홍길동</div>-->
+<!--                </div>-->
+<!--    -->
+<!--                <div class="chat-head">-->
+<!--                    <span class="chat-head-content">오늘 진짜 힘들었음</span>-->
+<!--                    <span class="chat-head-date">2024-07-03</span>-->
+<!--                </div>-->
+<!--                <div class="chat-body">-->
+<!--                    <span>2024-07-03</span>-->
+<!--                    <span>어쩌구 ㅇㄹㅇㄹ</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </section>-->
+<!--        -->
+<!--        -->
+<!--        <section class="chat-content">-->
+<!--            <textarea name="" id=""></textarea>-->
+<!--        </section>-->
+<!--        -->
+<!--        -->
+
+<!--    </section>-->
+<!--    <section class="right-section">-->
+<!--        <div class="search-container">-->
+<!--            <input class="search-input" type="text" placeholder="검색">-->
+<!--            <button class="search-btn"><i class="fas fa-search"></i></button>-->
+<!--        </div>-->
+<!--        <div class="text">대화상대</div>-->
+<!--        <div class="invite-item">-->
+<!--            <div class="avatar">-->
+<!--                <button class="invite-btn"><i class="fas fa-plus"></i></button>-->
+<!--            </div>-->
+<!--            <div class="chat-details">-->
+<!--                <div class="chat-title">Friend 1</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="chat-item">-->
+<!--            <div class="avatar">-->
+<!--                <img src="avatar1.jpg" alt="User Avatar">-->
+<!--            </div>-->
+<!--            <div class="chat-details">-->
+<!--                <div class="chat-title">Friend 2</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="text">사진파일</div>-->
+<!--        <div class="photo-grid">-->
+<!--            <div class="photo-item">-->
+<!--                <img src="image1.jpg" alt="Image 1">-->
+<!--            </div>-->
+<!--            <div class="photo-item">-->
+<!--                <img src="image1.jpg" alt="Image 1">-->
+<!--            </div>-->
+<!--            <div class="photo-item">-->
+<!--                <img src="image1.jpg" alt="Image 1">-->
+<!--            </div>-->
+<!--            <div class="photo-item">-->
+<!--                <img src="image1.jpg" alt="Image 1">-->
+<!--            </div>-->
+<!--            <div class="photo-item">-->
+<!--                <img src="image1.jpg" alt="Image 1">-->
+<!--            </div>-->
+<!--            <div class="photo-item">-->
+<!--                <img src="image1.jpg" alt="Image 1">-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="text">첨부파일</div>-->
+<!--        <div class="attachment-item chat-item">-->
+<!--            <div class="avatar">-->
+<!--                <img src="avatar2.jpg" alt="User Avatar">-->
+<!--            </div>-->
+<!--            <div class="chat-details">-->
+<!--                <div class="chat-title">Friend 2</div>-->
+<!--                <div class="file-detail">이름</div>-->
+<!--                <div class="file-detail">날짜</div>-->
+<!--                <div class="file-detail">용량</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="attachment-item chat-item">-->
+<!--            <div class="avatar">-->
+<!--                <img src="avatar2.jpg" alt="User Avatar">-->
+<!--            </div>-->
+<!--            <div class="chat-details">-->
+<!--                <div class="chat-title">Friend 2</div>-->
+<!--                <div class="file-detail">이름</div>-->
+<!--                <div class="file-detail">날짜</div>-->
+<!--                <div class="file-detail">용량</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="attachment-item chat-item">-->
+<!--            <div class="avatar">-->
+<!--                <img src="avatar2.jpg" alt="User Avatar">-->
+<!--            </div>-->
+<!--            <div class="chat-details">-->
+<!--                <div class="chat-title">Friend 2</div>-->
+<!--                <div class="file-detail">이름</div>-->
+<!--                <div class="file-detail">날짜</div>-->
+<!--                <div class="file-detail">용량</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+
+<!--</main>-->
+
+<!--&lt;!&ndash; <footer>-->
+<!--    <div class="footer-container">-->
+<!--        <div class="footer-left">-->
+<!--            <div class="footer-links">-->
+<!--                <a href="#" class="p_info">개인정보 처리방침</a>-->
+<!--                <a href="#">위치정보 이용약관</a>-->
+<!--                <a href="#">사이트맵</a>-->
+<!--                <a href="#">임차문의</a>-->
+<!--                <a href="#">고객문의</a>-->
+<!--                <a href="#">인재채용</a>-->
+<!--            </div>-->
+<!--            <div class="footer-info">-->
+<!--                <p>New Company</p>-->
+<!--                <p>대표이사: test</p>-->
+<!--                <p>사업자등록번호: test</p>-->
+<!--                <p>COPYRIGHT © 2019 ALL RIGHTS RESERVED BY New Company</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</footer> &ndash;&gt;-->
+<!--</body>-->
+<!--</html>-->

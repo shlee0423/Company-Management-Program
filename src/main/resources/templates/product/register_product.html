@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/css/product/register_product.css" th:href="@{/css/product/register_product.css}">
+    <script src="../../static/js/product/register_product.js" th:src="@{/js/product/register_product.js}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+            crossOrigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+            integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
+            crossOrigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
+          integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ=="
+          crossOrigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+    <div class="object">
+        <h1>New Company</h1>
+        <h2>비품 등록</h2>
+        <form th:action="@{/product/register_product}" method="POST"  enctype="multipart/form-data">
+            <div class="object-margin-design">
+                <label>
+                    <span>비품명</span>
+                    <input type="text" name="productName"/>
+                </label>
+            </div>
+            
+            <div class="object-margin-design">
+                <label>
+                    <span>카테고리</span>
+                    <input type="text" name="productCategory">
+                </label>
+            </div>
+            
+            <div class="object-margin-design">
+                <label>
+                    <span>갯수</span>
+                    <input type="number" name="productAmount">
+                </label>
+            </div>
+            
+            <div class="object-margin-design">
+                <label>
+                    <span>구매일</span>
+                    <input class="datepicker" name="productPurchaseDate" readonly>
+                </label>
+            </div>
+            
+            <div class="object-margin-design">
+                <label>
+                    <span>구매처</span>
+                    <input type="text" name="productSupplier">
+                </label>
+            </div>
+            
+            <div class="object-margin-design">
+                <label>
+                    <span>구매가격</span>
+                    <input type="number" name="productPrice">
+                </label>
+            </div>
+            <div class="object-margin-design">
+                <label>
+                    <span>대여여부</span>
+                    <select name="productStatus" id="">
+                        <option value="1">대여가능</option>
+                        <option value="0">대여불가능</option>
+                    </select>
+<!--                    <input type="number" name="productPrice">-->
+                </label>
+            </div>
+            
+            <div>
+                <label class="object-photo">
+                    <span>비품사진</span>
+                    <div class="object-photo-line"></div>
+                    <div><span>등록</span></div>
+                </label>
+            </div>
+            <div style="margin-left:10px">
+                <button id="submitBtn" type="submit">확인</button>
+                <button id="cancelBtn" type="button">취소</button>
+            </div>
+        </form>
+
+
+      </div>
+      
+      
+</body>
+</html>
+
+  

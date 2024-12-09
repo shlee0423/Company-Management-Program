@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/css/reservation/reservation.css" th:href="@{/css/reservation/reservation.css}" >
+    <script src="../../static/js/reservation/reservation.js" th:src="@{/js/reservation/reservation.js}" defer></script>
+
+</head>
+<body>
+<div class="rental">
+    <h2>대여 신청</h2>
+    <form id="rentalForm" th:action="@{/reservation/reservation}" onsubmit="return validateForm()" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="reservationProduct.productNo" th:value="${param.productNo}">
+        <div class="rental-margin-design">
+            <label>
+                <span>신청자</span>
+                <input type="text" id="applicant" name="reservationEmployee"/>
+            </label>
+        </div>
+
+        <div class="rental-margin-design">
+
+            <!--히든에 두개 값을 합쳐서 넣음-->
+            <input type="hidden" id="TotalStartDate" name="reservationDate">
+            <input type="hidden" id="TotalEndDate" name="returnDate">
+
+            <label>
+                <span>대여기간</span>
+                <div class="rental-date-line">
+                    <input type="date" id="startDate">
+                    <input type="date" id="endDate">
+                </div>
+            </label>
+        </div>
+
+        <div class="rental-margin-design">
+            <label>
+                <span>시간</span>
+                <div class="rental-date-line">
+                    <input type="time" id="startTime">
+                    <input type="time" id="endTime">
+                </div>
+            </label>
+        </div>
+
+        <div>
+            <label class="rental-purpose">
+                <span>사용목적</span>
+                <textarea class="rental-purpose-line" id="purpose" name="reservationContent"></textarea>
+            </label>
+        </div>
+
+        <div class="rental-button-box">
+            <button type="submit">확인</button>
+            <button type="button" onclick="confirmCancel()">취소</button>
+        </div>
+    </form>
+
+</div>
+</main>
+</body>
+</html>
+
+  

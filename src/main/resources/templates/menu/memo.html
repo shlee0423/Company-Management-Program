@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragment/main-layout}"
+
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/css/menu/memo.css" th:href="@{/css/menu/memo.css}">
+</head>
+<body>
+
+<main layout:fragment="main">
+    <h2>메모</h2>
+    <div class="rental-memo-box">
+        <!--    왼쪽 섹션-->
+        <section class="rental-table-list">
+            <form name="test" th:action="|/menu/memo/${employeeId}|" method="get">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <input type="hidden" id="employeeId" th:value="${employeeId}">
+
+                <!--        검색-->
+                <div class="rental-table-list-search">
+                    <label>
+                        <input type="text" id="memo-search-input" name="query">
+                    </label>
+                    <label>
+                        <select name="keyword">
+                            <option value="memoName">제목</option>
+                            <option value="memoContent">내용</option>
+                        </select>
+                    </label>
+                    <button type="submit" name="search">검색</button>
+                </div>
+                <!--            상세-->
+                <div class="memo-history">
+                    <div class="memo-detail" th:each ="memos : ${memoDTO}">
+                        <input type="hidden" name="memoNo" id="memoNo" th:value="${memos.memoNo}">
+                        <input type="checkbox" class="memo-checkbox"  th:value="${memos.memoNo}"><span id="memoName" th:text="'제목 : ' + ${memos.memoName}">1</span>
+                        <span id="memoDate" th:text="'날짜 : ' + ${#temporals.format(memos.memoDate,'yy-MM-dd hh:mm')}">2022.01.01</span>
+                        <span id="memoContent" th:text="'내용 : ' + ${memos.memoContent}">내용</span>
+
+                        <span>
+                        <a th:href="|/menu/memo/${employee.employeeId}/${memos.memoNo}|" target="_blank">내용 보기</a>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!--    오른쪽 섹션-->
+        <section class="rental-table-list-design">
+            <form th:action="|/menu/memo/${employeeId}|" method="post" enctype="multipart/form-data">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <!--               employeeName 에다가 test를 띄워야함 -->
+                <input type="hidden" name="memoWriter.employeeId" th:value="${employeeId}">
+                <!--        인풋박스랑 등록 삭제 버튼-->
+                <div class="table-list-button-style">
+                    <input type="text" id="memo_name" name="memoName">
+                    <button id="register" type="submit">등록</button>
+                    <!--                    폼1가져와서 submit 해야함-->
+                    <button class="table-list-button-delete" id="delete" type="button">삭제</button>
+                </div>
+                <!--        글 적는 구역-->
+                <div>
+                    <textarea name="memoContent" id="memo_content" class="memo-text"></textarea>
+                </div>
+            </form>
+        </section>
+    </div>
+
+</main>
+
+</body>
+</html>
+
+<script>
+    const memoNo = document.getElementsByClassName('memo-detail'); // 메모 번호
+    const registerBtn = document.getElementById("register");
+    const csrfTokenInput = document.querySelector('input[name="_csrf"]');
+    const employeeId = document.getElementById('employeeId').value;
+    registerBtn.onclick = () => {
+        if(document.getElementById("memo_name").value === "" || document.getElementById("memo_content").value === ""){
+            alert("제목 내용 입력");
+            return false;
+        }
+    }
+
+    function collectCheckedMemos() {
+        const memos = [];
+        // 만약 체크가 되면
+
+        [...memoNo].forEach(memo => {
+
+            const checkBoxInput = memo.querySelector('input[type="checkbox"]');
+            if (checkBoxInput.checked) {
+                // 값만 받아옴
+                const memoNoTe = document.getElementById('memoNo').value;
+
+                memos.push({
+                    no: memoNoTe,
+                });
+                // 체크가 되면 값들 리턴
+            }
+        });
+        return memos;
+    }
+
+    function deleteMemos(memos){
+        const memo = document.getElementById('memoNo').value
+        fetch(`/menu/memo/${employeeId}/${memo}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfTokenInput.value
+            },
+            body: JSON.stringify(memos)
+        }).then(response => {
+            if(response.ok){
+                console.log("성공");
+            }
+        })
+    }
+
+    document.getElementById('delete').onclick = () => {
+        console.log("삭제 버튼 클릭");
+        const memoItems = collectCheckedMemos();
+        console.log(memoItems);
+        if(memoItems.length <= 0){
+            alert("메모를 선택하세요");
+        }
+        else {
+            deleteMemos(memoItems);
+            alert("메모가 삭제되었습니다.")
+            location.reload();
+        }
+    }
+</script>

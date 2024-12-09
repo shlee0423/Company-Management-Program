@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Managing - 일정관리</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="calendar-modal" th:each="schedule: ${schedules}">
+        <div>
+            <span th:text="${schedule.scheduleTitle}">일정일정</span>
+            <span th:text="${schedule.scheduleStartDate}">시간</span>
+            <span th:text="${schedule.scheduleEndDate}">시간</span>
+        </div>
+        <div><span>모달창</span></div>
+        <div><span>모달창</span></div>
+    </div>
+
+    <div class="container">
+        <div class="calendar-header">
+            <h2>일정관리</h2>
+            <div class="button-wrapper">
+                <button>일정등록</button>
+            </div>
+        </div>
+        <div class="calendar">
+            
+            <div class="calendar-nav">
+                <div class="left">
+                    <span>September 2024</span>
+                </div>
+                <div class="center">
+                    <button class="active">Month</button>
+                    <button>Week</button>
+                </div>
+                <div class="right">
+                    <button>&lt;</button>
+                    <span>Today</span>
+                    <button>&gt;</button>
+                </div>
+            </div>
+            <div class="days-of-week">
+                <div>Sun</div>
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+            </div>
+            <table class="calendar-table">
+                <tbody>
+                    <tr>
+                        <td><span>1</span>
+                        </td>
+                        <td><span>2</span>
+                            <div class="event">일정일정일정일정</div>
+                        </td>
+                        <td><span>3</span></td>
+                        <td><span>4</span></td>
+                        <td><span>5</span></td>
+                        <td><span>6</span></td>
+                        <td><span>7</span></td>
+                    </tr>
+                    <tr>
+                        <td><span>8</span></td>
+                        <td><span>9</span></td>
+                        <td><span>10</span></td>
+                        <td><span>11</span></td>
+                        <td><span>12</span></td>
+                        <td><span>13</span></td>
+                        <td><span>14</span>
+                            <div class="event">일정일정일정일정</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span>15</span></td>
+                        <td><span>16</span></td>
+                        <td><span>17</span></td>
+                        <td><span>18</span></td>
+                        <td><span>19</span></td>
+                        <td><span>20</span></td>
+                        <td><span>21</span></td>
+                    </tr>
+                    <tr>
+                        <td><span>22</span></td>
+                        <td><span>23</span></td>
+                        <td><span>24</span></td>
+                        <td><span>25</span></td>
+                        <td><span>26</span></td>
+                        <td><span>27</span></td>
+                        <td><span>28</span></td>
+                    </tr>
+                    <tr>
+                        <td><span>29</span></td>
+                        <td><span>30</span></td>
+                        <td class="next-month"><span>1</span></td>
+                        <td class="next-month"><span>2</span></td>
+                        <td class="next-month"><span>3</span></td>
+                        <td class="next-month"><span>4</span></td>
+                        <td class="next-month"><span>5</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+<style>
+.nanum-myeongjo-regular{
+  font-family: "Nanum Myeongjo", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.nanum-gothic-coding-regular{
+  font-family: "Nanum Gothic Coding", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+.do-hyeon-regular{
+  font-family: "Do Hyeon", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+*{
+    font-family: "Do Hyeon"
+}
+.calendar-modal{
+    z-index:1;
+    border: 1px solid white;
+    background-color: whitesmoke;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    width: 15vw;
+    height: calc(100vh - 3px);
+    position:absolute;
+}
+.calendar-modal > div{
+    padding: 20px;
+    border-bottom: 2px solid;
+    background-color: blue;
+    display:flex;
+    justify-content: space-around;
+}
+.calendar-modal > div > span{
+    width: 10vw;
+    /* background-color: black; */
+}
+body {
+    margin: 0;
+    background-color: #d3d3d3;
+}
+.container {
+    position: relative;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #d3d3d3;
+    padding: 20px;
+    box-sizing: border-box;
+    /* border: 2px solid black; */
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #d3d3d3;
+}
+header h1 {
+    font-size: 1.5em;
+    margin: 0;
+}
+.nav {
+    display: flex;
+    gap: 15px;
+}
+.nav a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+.calendar {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 5px;
+}
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #d3d3d3;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    position: relative;
+}
+.calendar-header h2 {
+    margin: 0;
+    text-align: center;
+    flex-grow: 1;
+}
+.calendar-header .button-wrapper {
+    position: absolute;
+    right: 10px;
+}
+.calendar-header button {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.calendar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #d3d3d3;
+    border-radius: 5px 5px 0 0;
+    margin-bottom: 10px;
+}
+.calendar-nav .left,
+.calendar-nav .right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.calendar-nav .left span,
+.calendar-nav .right span {
+    font-size: 1.2em;
+}
+.calendar-nav .center {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.calendar-nav .center button {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+.calendar-nav .center button.active {
+    background-color: #ccc;
+}
+.days-of-week {
+    display: flex;
+    justify-content: space-between;
+    background-color: #d3d3d3;
+    padding: 10px;
+}
+.days-of-week div {
+    flex: 1;
+    text-align: left;
+    font-size: 0.8em;
+    padding-left: 10px;
+}
+.calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+.calendar-table th, .calendar-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+    vertical-align: top;
+    height: 75px;
+    background-color: #fff;
+}
+.calendar-table td span {
+    display: block;
+    font-size: 0.8em;
+}
+.calendar-table .today {
+    background-color: #f0f0f0;
+}
+.calendar-table .next-month {
+    background-color: #d3d3d3;
+}
+.event {
+    font-size: 13px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 5px;
+    display: inline-block;
+    cursor: pointer;
+}
+</style>
+</html>
+
+
+
+
+
+
+
+
+
+
