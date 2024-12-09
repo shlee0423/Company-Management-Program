@@ -6,7 +6,6 @@ import com.team.service.reserveservice.ReserveService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -25,7 +24,7 @@ public class ReservationController {
     ReserveService reserveService;
 
     @GetMapping("/reservation")
-    public String get_reservation(
+    public String getReservation(
             @RequestParam("productNo") Integer productNo
             ) {
 
@@ -33,7 +32,7 @@ public class ReservationController {
     }
 
     @PostMapping("/reservation")
-    public String post_reservation(
+    public String postReservation(
             @ModelAttribute @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
             ReservationDTO reservationDTO
     ) {
@@ -43,7 +42,7 @@ public class ReservationController {
     }
 
     @GetMapping("/list")
-    public String get_list(Model model, String query,
+    public String getList(Model model, String query,
                            @AuthenticationPrincipal EmployeeDTO employee
                            ){
         List<ReservationDTO> reservationList = reserveService.selectReservations(query);
@@ -58,7 +57,7 @@ public class ReservationController {
     }
 
     @GetMapping("/check/{reservationNo}")
-    public String get_check(
+    public String getCheck(
             @PathVariable("reservationNo") Integer reservationNo,
             Model model
     ) {
@@ -70,7 +69,7 @@ public class ReservationController {
     }
 
     @PostMapping("/list")
-    public ResponseEntity<String> post_reservation_update(
+    public ResponseEntity<String> postReservationUpdate(
             @RequestBody Integer item
 
     ){
@@ -79,7 +78,7 @@ public class ReservationController {
     }
 
     @DeleteMapping("/list")
-    public ResponseEntity<String> post_reservation_delete(
+    public ResponseEntity<String> postReservationDelete(
             @RequestBody Integer item
 
     ){

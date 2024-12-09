@@ -20,7 +20,7 @@ import java.util.Objects;
 public class MainController {
     // index 페이지를 불러옴
     @GetMapping("/index")
-    public String get_index(@AuthenticationPrincipal EmployeeDTO employeeDTO, Model model){
+    public String getIndex(@AuthenticationPrincipal EmployeeDTO employeeDTO, Model model){
         // 메인 페이지에 유저명 표시
         if(!Objects.isNull(employeeDTO)){
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -35,7 +35,7 @@ public class MainController {
 
     @ResponseBody
     @PostMapping("/index")
-    public ResponseEntity<Void> post_index(@AuthenticationPrincipal EmployeeDTO employeeDTO){
+    public ResponseEntity<Void> postIndex(@AuthenticationPrincipal EmployeeDTO employeeDTO){
         System.out.println(employeeDTO);
         if(Objects.isNull(employeeDTO)){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
